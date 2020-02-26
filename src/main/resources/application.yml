@@ -1,0 +1,3 @@
+server:
+   servlet-path: /banca-online
+   port: 80
