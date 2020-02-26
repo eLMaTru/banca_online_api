@@ -7,7 +7,7 @@ pipelines:
         caches:
           - maven
         script:
-          - mvn -s .ci/settings.xml clean verify
+          - mvn -B verify
   branches:
     master:
       - step:
@@ -16,7 +16,7 @@ pipelines:
           caches:
             - maven
           script:
-            - mvn -s .ci/settings.xml clean verify
+            - mvn -B verify
           artifacts:
             - target/**
       - step:
