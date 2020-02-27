@@ -13,3 +13,6 @@ to view first 1000 lines in logs: sudo journalctl -n 1000 -u bancaonlineapi
 you can see the below link for more information about how Run Your Java App as a Service
 
 https://dzone.com/articles/run-your-java-application-as-a-service-on-ubuntu
+
+--
+
