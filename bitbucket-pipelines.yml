@@ -7,7 +7,10 @@ pipelines:
         caches:
           - maven
         script:
-          - mvn -s .ci/settings.xml clean verify
+          - echo java --version
+          - echo mvn -version
+         # - mvn -s .ci/settings.xml clean verify
+          - mvn -B verify
   branches:
     master:
       - step:
@@ -16,7 +19,7 @@ pipelines:
           caches:
             - maven
           script:
-            - mvn -s .ci/settings.xml clean verify
+           # - mvn -s .ci/settings.xml clean verify
           artifacts:
             - target/**
       - step:
@@ -25,7 +28,7 @@ pipelines:
           caches:
             - maven
           script:
-            - mvn -s .ci/settings.xml deploy
+           # - mvn -s .ci/settings.xml deploy
   # Manually triggered via Bitbucket UI
   custom:
     release-major-version:
@@ -34,18 +37,18 @@ pipelines:
           caches:
             - maven
           script:
-            - ./.ci/version.sh major
+         #   - ./.ci/version.sh major
     release-minor-version:
       - step:
           max-time: 10
           caches:
             - maven
           script:
-            - ./.ci/version.sh minor
+         #  - ./.ci/version.sh minor
     release-patch:
       - step:
           max-time: 10
           caches:
             - maven
           script:
-            - ./.ci/version.sh patch
+          #  - ./.ci/version.sh patch
