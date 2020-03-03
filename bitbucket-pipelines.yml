@@ -21,6 +21,9 @@ pipelines:
             - maven
           script:
              - echo starting master branche Build and test ...
+             - echo java --version
+             - echo mvn -version
+             - mvn -B verify
            # - mvn -s .ci/settings.xml clean verify
           artifacts:
             - target/**
