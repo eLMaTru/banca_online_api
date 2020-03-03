@@ -2,6 +2,9 @@ package com.bancaonline.api.controller;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -136,4 +139,26 @@ public class GeneralController {
         generalService.updateCurrencies();
     }
 
+
+    /**
+     * Gets currency.
+     *
+     * @return the currency
+     * @throws IOException the io exception
+     */
+    @RequestMapping(value = "/verify/date", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean verifyDate(@RequestParam("viewDate") Integer viewHour) {
+
+        LocalDateTime now = LocalDateTime.now();
+        int minorHour = now.plusHours(-1).getHour();
+        int mayorHour = now.plusHours(1).getHour();
+
+        if (viewHour == now.getHour()){
+            return true;
+        }else if(viewHour > minorHour && viewHour < mayorHour){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
