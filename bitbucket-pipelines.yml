@@ -7,6 +7,7 @@ pipelines:
         caches:
           - maven
         script:
+          - echo starting default branche Build and test ...
           - echo java --version
           - echo mvn -version
          # - mvn -s .ci/settings.xml clean verify
@@ -19,6 +20,7 @@ pipelines:
           caches:
             - maven
           script:
+             - echo starting master branche Build and test ...
            # - mvn -s .ci/settings.xml clean verify
           artifacts:
             - target/**
@@ -28,6 +30,7 @@ pipelines:
           caches:
             - maven
           script:
+             - echo starting Deploy to Artifactory ...
            # - mvn -s .ci/settings.xml deploy
   # Manually triggered via Bitbucket UI
   custom:
@@ -37,6 +40,7 @@ pipelines:
           caches:
             - maven
           script:
+             - echo release-major-version ...
          #   - ./.ci/version.sh major
     release-minor-version:
       - step:
@@ -44,6 +48,7 @@ pipelines:
           caches:
             - maven
           script:
+            - echo release-minor-version ...
          #  - ./.ci/version.sh minor
     release-patch:
       - step:
@@ -51,4 +56,5 @@ pipelines:
           caches:
             - maven
           script:
+             - echo release-patch ...
           #  - ./.ci/version.sh patch
