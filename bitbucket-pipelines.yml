@@ -34,4 +34,6 @@ pipelines:
             - maven
           script:
              - echo starting Deploy to Artifactory ...
+             - python --version
+             - python -m pip install boto3
              - python $BITBUCKET_CLONE_DIR/codedeploy_deploy.py ${APPLICATION_NAME}
