@@ -28,6 +28,7 @@ pipelines:
             - target/**
       - step:
           name: Deploy to Artifactory
+          image: python:3.7.2
           max-time: 1 # set to 20 later
           caches:
             - maven
