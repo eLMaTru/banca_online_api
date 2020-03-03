@@ -10,7 +10,6 @@ pipelines:
           - echo starting default branche Build and test ...
           - java --version
           - mvn -version
-         # - mvn -s .ci/settings.xml clean verify
           - mvn -B verify
   branches:
     master:
@@ -23,8 +22,8 @@ pipelines:
              - echo starting master branche Build and test ...
              - java --version
              - mvn -version
+             - python --version
              - mvn -B verify
-           # - mvn -s .ci/settings.xml clean verify
           artifacts:
             - target/**
       - step:
@@ -34,30 +33,4 @@ pipelines:
             - maven
           script:
              - echo starting Deploy to Artifactory ...
-           # - mvn -s .ci/settings.xml deploy
-  # Manually triggered via Bitbucket UI
-  custom:
-    release-major-version:
-      - step:
-          max-time: 10
-          caches:
-            - maven
-          script:
-             - echo release-major-version ...
-         #   - ./.ci/version.sh major
-    release-minor-version:
-      - step:
-          max-time: 10
-          caches:
-            - maven
-          script:
-            - echo release-minor-version ...
-         #  - ./.ci/version.sh minor
-    release-patch:
-      - step:
-          max-time: 10
-          caches:
-            - maven
-          script:
-             - echo release-patch ...
-          #  - ./.ci/version.sh patch
+             - python $BITBUCKET_CLONE_DIR/codedeploy_deploy.py ${APPLICATION_NAME}
