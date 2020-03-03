@@ -7,7 +7,10 @@ pipelines:
         caches:
           - maven
         script:
-          - mvn -s .ci/settings.xml clean verify
+          - echo starting default branche Build and test ...
+          - java --version
+          - mvn -version
+          - mvn -B verify
   branches:
     master:
       - step:
@@ -16,36 +19,19 @@ pipelines:
           caches:
             - maven
           script:
-            - mvn -s .ci/settings.xml clean verify
+             - echo starting master branche Build and test ...
+             - java --version
+             - mvn -version
+             - python --version
+             - mvn -B verify
           artifacts:
             - target/**
       - step:
           name: Deploy to Artifactory
-          max-time: 20
+          image: python:3.7.2
+          max-time: 1 # set to 20 later
           caches:
             - maven
           script:
-            - mvn -s .ci/settings.xml deploy
-  # Manually triggered via Bitbucket UI
-  custom:
-    release-major-version:
-      - step:
-          max-time: 10
-          caches:
-            - maven
-          script:
-            - ./.ci/version.sh major
-    release-minor-version:
-      - step:
-          max-time: 10
-          caches:
-            - maven
-          script:
-            - ./.ci/version.sh minor
-    release-patch:
-      - step:
-          max-time: 10
-          caches:
-            - maven
-          script:
-            - ./.ci/version.sh patch
+             - echo starting Deploy to Artifactory ...
+             - python $BITBUCKET_CLONE_DIR/codedeploy_deploy.py ${APPLICATION_NAME}
