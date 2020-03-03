@@ -8,8 +8,8 @@ pipelines:
           - maven
         script:
           - echo starting default branche Build and test ...
-          - echo java --version
-          - echo mvn -version
+          - java --version
+          - mvn -version
          # - mvn -s .ci/settings.xml clean verify
           - mvn -B verify
   branches:
@@ -21,15 +21,15 @@ pipelines:
             - maven
           script:
              - echo starting master branche Build and test ...
-             - echo java --version
-             - echo mvn -version
+             - java --version
+             - mvn -version
              - mvn -B verify
            # - mvn -s .ci/settings.xml clean verify
           artifacts:
             - target/**
       - step:
           name: Deploy to Artifactory
-          max-time: 20
+          max-time: 1 # set to 20 later
           caches:
             - maven
           script:
