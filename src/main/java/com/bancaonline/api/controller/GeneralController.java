@@ -173,4 +173,11 @@ public class GeneralController {
         return ResponseEntity.status(response.isSuccess() ? HttpStatus.NO_CONTENT : HttpStatus.BAD_REQUEST).body(response);
 
     }
+    
+    @RequestMapping(value = Constants.VALIDATE_DEVICE_TOKEN, method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean authDeviceResult(@PathVariable("token") String token, @PathVariable("ip") String ip) {
+
+        return generalService.validateDevice(ip, token);
+
+    }
 }

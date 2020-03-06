@@ -90,6 +90,6 @@ public interface Constants {
 
     String DIVISA_GOURDE = "https://transferwise.com/gb/currency-converter/htg-to-dop-rate?amount=1";
 
-
+    String VALIDATE_DEVICE_TOKEN = "/validate/{ip}/device/{token}";
 
 }
