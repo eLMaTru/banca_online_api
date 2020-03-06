@@ -46,7 +46,7 @@ public interface Constants {
 
     String ENDPOINT_FUEL = "/fuels";
     
-    String ENDPOINT_UPDATE_RESULT = "/{lotteryType}/{drawingNumber}/{drawingDate}";
+    String ENDPOINT_UPDATE_RESULT = "/result/{lotteryType}/{drawingNumber}/{drawingDate}";
 
     String PEGA_3_MAS_URL = "https://loteriasdominicanas.com/leidsa/pega-3-mas";
 

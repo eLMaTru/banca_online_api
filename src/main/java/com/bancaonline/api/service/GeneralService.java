@@ -16,22 +16,25 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bancaonline.api.component.ResultJob;
+import com.bancaonline.api.model.AuthDevice;
 import com.bancaonline.api.model.CurrencyResult;
 import com.bancaonline.api.model.LotteryResult;
 import com.bancaonline.api.model.LotteryType;
 import com.bancaonline.api.model.Status;
 import com.bancaonline.api.model.dto.CurrencyDto;
 import com.bancaonline.api.model.dto.DaysOfWeek;
+import com.bancaonline.api.repository.AuthDeviceRepository;
 import com.bancaonline.api.repository.LotteryResultRepository;
 import com.bancaonline.api.response.GeneralResponse;
 import com.bancaonline.api.util.Constants;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * The type General service.
@@ -52,6 +55,9 @@ public class GeneralService {
 
     @Autowired
     private ResultJob resultJob;
+    
+    @Autowired
+    private AuthDeviceRepository authDeviceRepository;
 
     /**
      * Gets fuels.
@@ -272,8 +278,43 @@ public class GeneralService {
 
             response = new GeneralResponse(false, 400, "Bad Request");
         }
-
+        
         return response;
     }
+        
+        
+        public boolean validateDevice(String ip, String token) {
+
+    		Optional<AuthDevice> device = authDeviceRepository.findByTokenAndIpAndStatus(token, ip,
+    				Status.Type.ENABLED.toStatus());
+
+    		boolean result = true;
+
+    		if (device.isEmpty()) {
+
+    			if (!this.authDeviceRepository.existByIpAndToken(ip, token)) {
+
+    				List<AuthDevice> ads = this.authDeviceRepository.findByTokenAndStatus(token,
+    						Status.Type.ENABLED.toStatus());
+
+    				ads.forEach(ad -> {
+
+    					ad.setStatus(Status.Type.DISABLED.toStatus());
+    					this.authDeviceRepository.save(ad);
+    				});
+
+    				AuthDevice ad = new AuthDevice(ip, token, Status.Type.ENABLED.toStatus());
+    				authDeviceRepository.save(ad);
+
+    			} else {
+    				
+    				result = false;
+    			}
+
+    		}
+
+    		return result;
+    	}
+
 
 }
