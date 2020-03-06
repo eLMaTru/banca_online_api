@@ -25,6 +25,8 @@ import org.springframework.stereotype.Service;
 
 import com.bancaonline.api.component.ResultJob;
 import com.bancaonline.api.model.AuthDevice;
+import com.bancaonline.api.model.Consortium;
+import com.bancaonline.api.model.ConsortiumToken;
 import com.bancaonline.api.model.CurrencyResult;
 import com.bancaonline.api.model.LotteryResult;
 import com.bancaonline.api.model.LotteryType;
@@ -32,6 +34,8 @@ import com.bancaonline.api.model.Status;
 import com.bancaonline.api.model.dto.CurrencyDto;
 import com.bancaonline.api.model.dto.DaysOfWeek;
 import com.bancaonline.api.repository.AuthDeviceRepository;
+import com.bancaonline.api.repository.ConsortiumRepository;
+import com.bancaonline.api.repository.ConsortiumTokenRepository;
 import com.bancaonline.api.repository.LotteryResultRepository;
 import com.bancaonline.api.response.GeneralResponse;
 import com.bancaonline.api.util.Constants;
@@ -58,6 +62,13 @@ public class GeneralService {
     
     @Autowired
     private AuthDeviceRepository authDeviceRepository;
+    
+    @Autowired
+    private ConsortiumRepository consortiumRepository;
+    
+    @Autowired
+    private ConsortiumTokenRepository consortiumTokenRepository;
+    
 
     /**
      * Gets fuels.
@@ -315,6 +326,24 @@ public class GeneralService {
 
     		return result;
     	}
+
+		public Boolean createToken(String name, String token) {
+
+			Optional<Consortium> com = this.consortiumRepository.findByName(name);
+			
+			boolean result = false;
+			
+			if(com.isPresent()) {
+				
+				ConsortiumToken ct = new ConsortiumToken(com.get(), token, Status.Type.ENABLED.toStatus() );
+				this.consortiumTokenRepository.save(ct);
+				
+				result = true;;
+			}
+			
+			
+			return result;
+		}
 
 
 }

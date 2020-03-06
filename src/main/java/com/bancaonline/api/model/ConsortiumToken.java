@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -22,11 +24,14 @@ public class ConsortiumToken implements Serializable {
 	@Column(name = "consortium_token_id")
 	private Long id;
 	
-	
+	@ManyToOne
+	@JoinColumn(name = "consortium_id")
 	private Consortium consortium;
 	
 	private String token;
 	
+	@ManyToOne
+	@JoinColumn(name = "status_id")
 	private Status status;
 
 	public ConsortiumToken() {

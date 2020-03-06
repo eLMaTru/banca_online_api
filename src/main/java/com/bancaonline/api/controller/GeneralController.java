@@ -180,4 +180,13 @@ public class GeneralController {
         return generalService.validateDevice(ip, token);
 
     }
+    
+    @RequestMapping(value = "/create/token", method = RequestMethod.POST , produces = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean createToken(@PathVariable("token") String token, @PathVariable("name") String name) {
+
+        return generalService.createToken(name, token);
+
+    }
+    
+    
 }
