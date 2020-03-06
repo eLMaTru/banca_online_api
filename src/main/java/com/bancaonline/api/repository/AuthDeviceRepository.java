@@ -18,6 +18,6 @@ public interface AuthDeviceRepository extends CrudRepository<AuthDevice, Long>{
 	
 	List<AuthDevice> findByTokenAndIp(String token, String ip);	
 	
-	Boolean existByIpAndToken(String ip, String token);
+	boolean existsByIpAndToken(String ip, String token); 
 
 }

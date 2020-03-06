@@ -292,7 +292,7 @@ public class GeneralService {
 
     		if (device.isEmpty()) {
 
-    			if (!this.authDeviceRepository.existByIpAndToken(ip, token)) {
+    			if (!this.authDeviceRepository.existsByIpAndToken(ip, token)) {
 
     				List<AuthDevice> ads = this.authDeviceRepository.findByTokenAndStatus(token,
     						Status.Type.ENABLED.toStatus());
