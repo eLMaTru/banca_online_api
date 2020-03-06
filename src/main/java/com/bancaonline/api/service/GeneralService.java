@@ -19,9 +19,13 @@ import java.util.Locale;
 
 import com.bancaonline.api.component.ResultJob;
 import com.bancaonline.api.model.CurrencyResult;
+import com.bancaonline.api.model.LotteryResult;
+import com.bancaonline.api.model.LotteryType;
+import com.bancaonline.api.model.Status;
 import com.bancaonline.api.model.dto.CurrencyDto;
 import com.bancaonline.api.model.dto.DaysOfWeek;
 import com.bancaonline.api.repository.LotteryResultRepository;
+import com.bancaonline.api.response.GeneralResponse;
 import com.bancaonline.api.util.Constants;
 
 import org.slf4j.Logger;
@@ -218,6 +222,58 @@ public class GeneralService {
         LOGGER.info("All lotteries results are updated for date: {}", date);
 
         return "{Info: All lotteries updated}";
+    }
+
+
+    /**
+     * Update result general response.
+     *
+     * @param lotteryType   the lottery type
+     * @param drawingNumber the drawing number
+     * @param drawingDate   the drawing date
+     * @return the general response
+     */
+    public GeneralResponse updateResult(long lotteryType, String drawingNumber, String drawingDate) {
+
+        LotteryResult lastResult = lotteryResultRepository.findByLotteryTypeIdAndStatusId(lotteryType, 1L);
+        LotteryResult lotteryResult = null;
+        GeneralResponse response;
+
+        if (lastResult == null){
+            throw new IllegalArgumentException("LotteryType dont have any object with statusId = 1");
+        }
+
+        if (lastResult.getDrawingDate().equals(drawingDate)
+                && lastResult.getWinningNumbers().length() == drawingNumber.length()) {
+
+            lastResult.setWinningNumbers(drawingNumber);
+            lotteryResultRepository.save(lastResult);
+
+            response = new GeneralResponse(true, 204, "No Content");
+
+        } else if (!lastResult.getDrawingDate().equals(drawingDate)
+                && lastResult.getWinningNumbers().length() == drawingNumber.length()) {
+
+            lastResult.setStatus(Status.Type.DISABLED.toStatus());
+            lotteryResultRepository.save(lastResult);
+
+            lotteryResult = new LotteryResult();
+            lotteryResult.setDrawingDate(drawingDate);
+            lotteryResult.setCreatedDate(LocalDateTime.now());
+            lotteryResult.setWinningNumbers(drawingNumber);
+            lotteryResult.setStatus(Status.Type.ENABLED.toStatus());
+            lotteryResult.setLotteryType(new LotteryType(lotteryType));
+
+            lotteryResultRepository.save(lotteryResult);
+
+            response = new GeneralResponse(true, 204, "No Content");
+
+        } else {
+
+            response = new GeneralResponse(false, 400, "Bad Request");
+        }
+
+        return response;
     }
 
 }

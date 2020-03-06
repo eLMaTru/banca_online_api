@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.bancaonline.api.model.dto.CurrencyDto;
 import com.bancaonline.api.model.dto.DaysOfWeek;
+import com.bancaonline.api.response.GeneralResponse;
 import com.bancaonline.api.service.EmailSender;
 import com.bancaonline.api.service.GeneralService;
 import com.bancaonline.api.util.Constants;
@@ -20,12 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * The type Americana controller.
@@ -116,8 +112,7 @@ public class GeneralController {
     /**
      * Update all lotteries results.
      *
-     * @param date the string date representation to filter the url (valid format:
-     *             12-02-2020)
+     * @param date the string date representation to filter the url (valid format:             12-02-2020)
      * @return successful message
      * @throws IOException    the io exception
      * @throws ParseException the parse exception
@@ -141,6 +136,7 @@ public class GeneralController {
     /**
      * Gets currency.
      *
+     * @param viewHour the view hour
      * @return the currency
      * @throws IOException the io exception
      */
@@ -158,5 +154,23 @@ public class GeneralController {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Update result response entity.
+     *
+     * @param lotteryType   the lottery type
+     * @param drawingNumber the drawing number
+     * @param drawingDate   the drawing date
+     * @return the response entity
+     */
+    @RequestMapping(value = Constants.ENDPOINT_UPDATE_RESULT, method = RequestMethod.PUT , produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GeneralResponse> updateResult(@PathVariable("lotteryType") Integer lotteryType,
+                                                         @PathVariable("drawingNumber") String drawingNumber, @PathVariable("drawingDate") String drawingDate) {
+
+        GeneralResponse response = generalService.updateResult(lotteryType, drawingNumber, drawingDate);
+
+        return ResponseEntity.status(response.isSuccess() ? HttpStatus.NO_CONTENT : HttpStatus.BAD_REQUEST).body(response);
+
     }
 }
