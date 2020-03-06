@@ -125,4 +125,9 @@ public class AdvertisementType implements Serializable {
 
     }
 
+    @Override
+    public String toString() {
+        return "AdvertisementType [description=" + description + ", id=" + id + ", name=" + name + "]";
+    }
+
 }

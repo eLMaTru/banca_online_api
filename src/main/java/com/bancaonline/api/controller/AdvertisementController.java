@@ -10,14 +10,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 import com.bancaonline.api.model.Advertisement;
+import com.bancaonline.api.model.dto.AdvertisementDto;
+import com.bancaonline.api.service.AdvertisementService;
 import com.bancaonline.api.util.EndpointConstants;
 
 @Validated
@@ -87,6 +92,32 @@ public class AdvertisementController {
             map.put("Status", status.name());
             map.put("Details", "Advertisement don't exist");
         }
+        return ResponseEntity.status(status).body(map);
+    }
+
+    /**
+     * Save Advertisement.
+     *
+     * @param consortiumId     the consortium Id
+     * @param advertisementDto the advertisement Dto
+     * @return empty
+     */
+    @PostMapping(value = "/consortium/{consortiumId}/advertisement", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, String>> saveAdvertisement(@PathVariable("consortiumId") Long consortiumId,
+            @RequestBody AdvertisementDto advertisementDto) {
+
+        Advertisement advertisement = new Advertisement(advertisementDto);
+        advertisement.setCreatedDate(LocalDateTime.now());
+        Advertisement savedAdvertisement = advertisementService.saveEnabled(advertisement);
+        HttpStatus status = HttpStatus.NO_CONTENT;
+        HashMap<String, String> map = new HashMap<>();
+
+        if (savedAdvertisement != null) {
+            LOGGER.info("advertisement: " + savedAdvertisement.toString() + " Saved successfully");
+        } else {
+            LOGGER.error("Error saving advertisement: " + advertisement.toString());
+        }
+
         return ResponseEntity.status(status).body(map);
     }
 }

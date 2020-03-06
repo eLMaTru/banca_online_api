@@ -3,6 +3,8 @@ package com.bancaonline.api.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.bancaonline.api.model.dto.AdvertisementDto;
+
 import java.io.Serializable;
 
 import java.time.LocalDateTime;
@@ -45,6 +47,16 @@ public class Advertisement implements Serializable {
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
+
+    public Advertisement() {
+    }
+
+    public Advertisement(AdvertisementDto advertisementDto) {
+        this.advertisementInfo = advertisementDto.getAdvertisementInfo();
+        this.imageUrl = advertisementDto.getImageUrl();
+        this.advertisementType = new AdvertisementType(advertisementDto.getAdvertisementTypeId());
+        this.consortium = new Consortium(advertisementDto.getConsortiumId());
+    }
 
     /**
      * Gets id.
@@ -110,6 +122,13 @@ public class Advertisement implements Serializable {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Advertisement [advertisementInfo=" + advertisementInfo + ", advertisementType=" + advertisementType.toString()
+                + ", consortium=" + consortium.toString() + ", createdDate=" + createdDate + ", id=" + id + ", imageUrl="
+                + imageUrl + ", status=" + status + "]";
     }
 
 }

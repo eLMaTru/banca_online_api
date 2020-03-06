@@ -3,8 +3,6 @@ package com.bancaonline.api.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -118,7 +116,8 @@ public class GeneralController {
     /**
      * Update all lotteries results.
      *
-     * @param date the string date representation to filter the url (valid format:             12-02-2020)
+     * @param date the string date representation to filter the url (valid format:
+     *             12-02-2020)
      * @return successful message
      * @throws IOException    the io exception
      * @throws ParseException the parse exception
@@ -139,7 +138,6 @@ public class GeneralController {
         generalService.updateCurrencies();
     }
 
-
     /**
      * Gets currency.
      *
@@ -153,11 +151,11 @@ public class GeneralController {
         int minorHour = now.plusHours(-1).getHour();
         int mayorHour = now.plusHours(1).getHour();
 
-        if (viewHour == now.getHour()){
+        if (viewHour == now.getHour()) {
             return true;
-        }else if(viewHour > minorHour && viewHour < mayorHour){
+        } else if (viewHour > minorHour && viewHour < mayorHour) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

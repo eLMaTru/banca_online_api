@@ -161,4 +161,11 @@ public class Consortium implements Serializable {
     public void setLogo(String logo) {
         this.logo = logo;
     }
+
+    @Override
+    public String toString() {
+        return "Consortium [allowedIps=" + allowedIps + ", createdDate=" + createdDate + ", id=" + id + ", logo=" + logo
+                + ", name=" + name + ", note=" + note + "]";
+    }
+
 }

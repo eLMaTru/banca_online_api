@@ -1,3 +1,8 @@
+# Description: Pipeline for banca-online-api. This pipeline is pending to configure aws cloud. 
+# See: https://hackernoon.com/deploy-to-ec2-with-aws-codedeploy-from-bitbucket-pipelines-4f403e96d50c
+# Author: Jorge de Los Santos
+# Version: 1.0
+# Since: 03-03-2019
 image: maven:3-jdk-11
 pipelines:
   default:
