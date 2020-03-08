@@ -294,56 +294,63 @@ public class GeneralService {
     }
         
         
-        public boolean validateDevice(String ip, String token) {
+	public boolean validateDevice(String ip, String token) {
 
-    		Optional<AuthDevice> device = authDeviceRepository.findByTokenAndIpAndStatus(token, ip,
-    				Status.Type.ENABLED.toStatus());
+		boolean result = true;
 
-    		boolean result = true;
+		if (this.consortiumTokenRepository.findByToken(token).isPresent()) {
 
-    		if (device.isEmpty()) {
+			Optional<AuthDevice> device = authDeviceRepository.findByTokenAndIpAndStatus(token, ip,
+					Status.Type.ENABLED.toStatus());
 
-    			if (!this.authDeviceRepository.existsByIpAndToken(ip, token)) {
+			if (device.isEmpty()) {
 
-    				List<AuthDevice> ads = this.authDeviceRepository.findByTokenAndStatus(token,
-    						Status.Type.ENABLED.toStatus());
+				if (!this.authDeviceRepository.existsByIpAndToken(ip, token)) {
 
-    				ads.forEach(ad -> {
+					List<AuthDevice> ads = this.authDeviceRepository.findByTokenAndStatus(token,
+							Status.Type.ENABLED.toStatus());
 
-    					ad.setStatus(Status.Type.DISABLED.toStatus());
-    					this.authDeviceRepository.save(ad);
-    				});
+					ads.forEach(ad -> {
 
-    				AuthDevice ad = new AuthDevice(ip, token, Status.Type.ENABLED.toStatus());
-    				authDeviceRepository.save(ad);
+						ad.setStatus(Status.Type.DISABLED.toStatus());
+						this.authDeviceRepository.save(ad);
+					});
 
-    			} else {
-    				
-    				result = false;
-    			}
+					AuthDevice ad = new AuthDevice(ip, token, Status.Type.ENABLED.toStatus());
+					authDeviceRepository.save(ad);
 
-    		}
+				} else {
 
-    		return result;
-    	}
+					result = false;
+				}
 
-		public Boolean createToken(String name, String token) {
-
-			Optional<Consortium> com = this.consortiumRepository.findByName(name);
-			
-			boolean result = false;
-			
-			if(com.isPresent()) {
-				
-				ConsortiumToken ct = new ConsortiumToken(com.get(), token, Status.Type.ENABLED.toStatus() );
-				this.consortiumTokenRepository.save(ct);
-				
-				result = true;;
 			}
-			
-			
-			return result;
+
+		} else {
+
+			result = false;
 		}
+
+		return result;
+	}
+
+	public Boolean createToken(String name, String token) {
+
+		Optional<Consortium> com = this.consortiumRepository.findByName(name);
+
+		boolean result = false;
+
+		if (com.isPresent()) {
+
+			ConsortiumToken ct = new ConsortiumToken(com.get(), token, Status.Type.ENABLED.toStatus());
+			this.consortiumTokenRepository.save(ct);
+
+			result = true;
+			;
+		}
+
+		return result;
+	}
 
 
 }

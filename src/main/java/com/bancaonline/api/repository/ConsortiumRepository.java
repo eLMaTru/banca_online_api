@@ -13,7 +13,6 @@ import com.bancaonline.api.model.Consortium;
 @Repository
 public interface ConsortiumRepository extends CrudRepository<Consortium, Long> {
 	
-	
 	Optional<Consortium> findByName(String name);
 
 }
