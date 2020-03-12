@@ -1,6 +1,7 @@
 package com.bancaonline.api.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "auth_device")
@@ -28,26 +30,28 @@ public class AuthDevice implements Serializable {
 
 	private String token;
 
+	@Column(name = "created_date")
+	@NotNull
+	private LocalDateTime createdDate;
+
 	@ManyToOne
 	@JoinColumn(name = "status_id")
 	private Status status;
-	
+
 	public AuthDevice(String ip, String token, Status status) {
-		
+
 		this.ip = ip;
 		this.token = token;
 		this.status = status;
 	}
 
 	public AuthDevice(Long id, String ip, String token, Status status) {
-		
+
 		this.id = id;
 		this.ip = ip;
 		this.token = token;
 		this.status = status;
 	}
-	
-	
 
 	public AuthDevice() {
 		super();
@@ -85,7 +89,13 @@ public class AuthDevice implements Serializable {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
-	
+
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
 
 }

@@ -5,6 +5,11 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import com.bancaonline.api.model.dto.CurrencyDto;
 import com.bancaonline.api.model.dto.DaysOfWeek;
@@ -13,7 +18,9 @@ import com.bancaonline.api.service.EmailSender;
 import com.bancaonline.api.service.GeneralService;
 import com.bancaonline.api.util.Constants;
 import com.bancaonline.api.util.EndpointConstants;
+import com.bancaonline.api.util.ValidationPattern;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,7 +119,8 @@ public class GeneralController {
     /**
      * Update all lotteries results.
      *
-     * @param date the string date representation to filter the url (valid format:             12-02-2020)
+     * @param date the string date representation to filter the url (valid format:
+     *             12-02-2020)
      * @return successful message
      * @throws IOException    the io exception
      * @throws ParseException the parse exception
@@ -164,29 +172,31 @@ public class GeneralController {
      * @param drawingDate   the drawing date
      * @return the response entity
      */
-    @RequestMapping(value = Constants.ENDPOINT_UPDATE_RESULT, method = RequestMethod.PUT , produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = Constants.ENDPOINT_UPDATE_RESULT, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GeneralResponse> updateResult(@PathVariable("lotteryType") Integer lotteryType,
-                                                         @PathVariable("drawingNumber") String drawingNumber, @PathVariable("drawingDate") String drawingDate) {
+            @PathVariable("drawingNumber") String drawingNumber, @PathVariable("drawingDate") String drawingDate) {
 
         GeneralResponse response = generalService.updateResult(lotteryType, drawingNumber, drawingDate);
 
-        return ResponseEntity.status(response.isSuccess() ? HttpStatus.NO_CONTENT : HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity.status(response.isSuccess() ? HttpStatus.NO_CONTENT : HttpStatus.BAD_REQUEST)
+                .body(response);
 
     }
-    
-    @RequestMapping(value = Constants.VALIDATE_DEVICE_TOKEN, method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean authDeviceResult(@PathVariable("token") String token, @PathVariable("ip") String ip) {
 
+    @RequestMapping(value = Constants.VALIDATE_DEVICE_TOKEN, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean authDeviceResult(@PathVariable("token") String token, HttpServletRequest request) {
+
+        String ip = request.getRemoteAddr();
         return generalService.validateDevice(ip, token);
 
     }
-    
-    @RequestMapping(value = "/create/token", method = RequestMethod.POST , produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean createToken(@PathVariable("token") String token, @PathVariable("name") String name) {
 
-        return generalService.createToken(name, token);
+    @RequestMapping(value = "/generate/token/consortium_name/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean generateToken(@PathVariable("name") String name,
+            @NotNull @RequestParam("tokenType") Long tokenType) {
+
+        return generalService.createToken(name, tokenType);
 
     }
-    
-    
+
 }

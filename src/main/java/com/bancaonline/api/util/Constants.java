@@ -2,7 +2,7 @@ package com.bancaonline.api.util;
 
 public interface Constants {
 
-    String LOTERIAS_DO_URL= "https://www.loteriasdominicanas.com.do/";
+    String LOTERIAS_DO_URL = "https://www.loteriasdominicanas.com.do/";
 
     String MEGA_MILLIONS_URL = "https://www.conectate.com.do/loterias/americanas/mega-millions";
 
@@ -45,7 +45,7 @@ public interface Constants {
     String ENDPOINT_MEGA_MILLION = "/megamillion";
 
     String ENDPOINT_FUEL = "/fuels";
-    
+
     String ENDPOINT_UPDATE_RESULT = "/result/{lotteryType}/{drawingNumber}/{drawingDate}";
 
     String PEGA_3_MAS_URL = "https://loteriasdominicanas.com/leidsa/pega-3-mas";
@@ -90,6 +90,6 @@ public interface Constants {
 
     String DIVISA_GOURDE = "https://transferwise.com/gb/currency-converter/htg-to-dop-rate?amount=1";
 
-    String VALIDATE_DEVICE_TOKEN = "/validate/{ip}/device/{token}";
+    String VALIDATE_DEVICE_TOKEN = "/validate/device/{token}";
 
 }

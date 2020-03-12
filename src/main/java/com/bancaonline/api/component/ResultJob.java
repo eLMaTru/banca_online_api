@@ -48,7 +48,6 @@ public class ResultJob {
     @Autowired
     private LotteryResultRepository lotteryResultRepository;
 
-
     @Scheduled(cron = "0 0 15 ? * SUN,MON,TUE,WED,THU,FRI,SAT")
     @Async
     protected void updateJuegaMasGanaMasResults() throws IOException {
@@ -224,7 +223,7 @@ public class ResultJob {
         }
     }
 
-    @Scheduled(cron = "0 35 13 ? * 1-7")
+    @Scheduled(cron = "0 35 12 ? * 1-7")
     @Async
     protected void updateNewYork1230Results() throws IOException {
         LotteryResult lotteryResult = americanaService.updateNewYork1230Results(null);
@@ -237,7 +236,7 @@ public class ResultJob {
         }
     }
 
-    @Scheduled(cron = "0 35 20 ? * 1-7")
+    @Scheduled(cron = "0 35 19 ? * 1-7")
     @Async
     protected void updateNewYork730Results() throws IOException {
         LotteryResult lotteryResult = americanaService.updateNewYork730Results(null);
@@ -322,7 +321,7 @@ public class ResultJob {
 
         Calendar calendarToday = Calendar.getInstance();
         calendarToday.setTime(toDay);
-        calendarToday.add(Calendar.DAY_OF_WEEK,-1);
+        calendarToday.add(Calendar.DAY_OF_WEEK, -1);
         toDay = calendarToday.getTime();
 
         while (dateFromService.compareTo(toDay) < 0) {
@@ -353,8 +352,8 @@ public class ResultJob {
             americanaService.updatePowerBallResult(date);
             lotekaService.updateMegaLotoResult(date);
 
-           calendar.add(Calendar.DAY_OF_WEEK,1);
-           dateFromService = calendar.getTime();
+            calendar.add(Calendar.DAY_OF_WEEK, 1);
+            dateFromService = calendar.getTime();
         }
     }
 

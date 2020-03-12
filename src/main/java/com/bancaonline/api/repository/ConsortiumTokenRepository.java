@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.bancaonline.api.model.ConsortiumToken;
 
 @Repository
-public interface ConsortiumTokenRepository extends CrudRepository<ConsortiumToken, Long>{
-	
-	Optional<ConsortiumToken> findByToken(String token);
+public interface ConsortiumTokenRepository extends CrudRepository<ConsortiumToken, Long> {
+
+	Optional<ConsortiumToken> findByTokenAndStatusId(String token, Long statusId);
 
 }

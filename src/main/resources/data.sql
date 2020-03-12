@@ -157,9 +157,9 @@ IF (
     from develop.consortium
     ) = 0 THEN
     INSERT INTO develop.consortium
-        (consortium_id, name, note, allowed_ips, created_date)
+        (consortium_id, name, note, allowed_ips, created_date, s3_bucket_name, status_id)
     values
-        (1, ''banca_baez'', ''...'', 1, NOW());
+        (3, ''hh-tech'', ''This consortium is for testing purpose'', 1, NOW(), ''horizon-high-tech'', 1);
     END IF;
 
     -- advertisement_type table --
@@ -178,7 +178,7 @@ IF (
         (2, ''Is a ADVERTISEMENT to place in MARQUEE section'', ''MARQUEE_ADVERTISEMENT'');
     END IF;
 
--- advertisement table: delete this insert in the future --
+-- advertisement table: change this insert to hh-tech consortium in the future --
 IF (
     select
         count(*)
@@ -187,7 +187,23 @@ IF (
     INSERT INTO develop.advertisement
         (advertisement_id, advertisement_info, consortium_id, status_id, created_date, advertisement_type_id)
     values
-        (1, ''<span>Consorcio de bancas Baez - Siguenos en las Redes Sociales: <i class="fa fa-facebook-square marquee-fa" style="color: blue;"></i> bancasBaez<i class="fa fa-instagram marquee-fa" style="color: lightcoral;"></i> @bancas_baez <i class="fa fa-whatsapp marquee-fa" style="color: green;"></i> 829-220-0000 - Con nosotros cobras tu dinero hoy mismo. Buena Suerte! </span><i class="fa fa-angle-double-right advise_divider marquee-fa"></i><span>Laboramos en horarios de Lunes a Sabado de 9:00 am a 9:30 pm y los Domingos de 9:00 am a 6:00 PM</span>'', 1, 1, NOW(), 2);
+        (1, ''<span>Consorcio de bancas hh-tech - Siguenos en las Redes Sociales: <i class="fa fa-facebook-square marquee-fa" style="color: blue;"></i> hh-tech <i class="fa fa-instagram marquee-fa" style="color: lightcoral;"></i> @bancas-hh-tech <i class="fa fa-whatsapp marquee-fa" style="color: green;"></i> 829-220-0000 - Con nosotros cobras tu dinero hoy mismo. Buena Suerte! </span> <i class="fa fa-angle-double-right advise_divider marquee-fa"></i><span>Laboramos en horarios de Lunes a Sabado de 9:00 am a 9:30 pm y los Domingos de 9:00 am a 6:00 PM</span>'', 3, 1, NOW(), 2);
+    END IF;
+
+-- token_type table --
+IF (
+    select
+        count(*)
+    from develop.token_type
+    ) = 0 THEN
+    INSERT INTO develop.token_type
+        (token_type_id, description, name)
+    values
+        (1, ''Type for a consortium token in production environment'', ''PRODUCTION'');
+    INSERT INTO develop.token_type
+        (token_type_id, description, name)
+    values
+        (2, ''Type for a consortium token in test environment'', ''TEST'');
     END IF;        
 
 END';
