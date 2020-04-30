@@ -80,7 +80,7 @@ public interface Constants {
 
     String QUINIELA_LA_PRIMERA_URL = "https://loteriasdominicanas.com/la-primera/quiniela-medio-dia";
 
-    String FUEL = "http://apirest.myartsonline.com/combustibleApi/combustibleApiJson.php?url=getCombustible";
+    String FUEL = "http://apirest.myartsonline.com/combustibleApi/combustibleApiJson.php?url=getFuelForBanca";
 
     String DIVISA_DOLLAR = "https://transferwise.com/gb/currency-converter/usd-to-dop-rate?amount=1";
 
