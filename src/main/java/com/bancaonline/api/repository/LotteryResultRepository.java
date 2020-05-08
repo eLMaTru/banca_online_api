@@ -8,6 +8,7 @@ import com.bancaonline.api.model.LotteryResult;
 import com.bancaonline.api.model.LotteryType;
 import com.bancaonline.api.model.Status;
 
+import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -28,6 +29,10 @@ public interface LotteryResultRepository extends CrudRepository<LotteryResult, S
      */
     @Transactional()
     LotteryResult findByLotteryType(LotteryType lotteryType);
+    
+    @Transactional
+ 
+    List<LotteryResult> findByLotteryTypeId(long typeId);
 
     /**
      * Find by lottery type id and status id lottery result.

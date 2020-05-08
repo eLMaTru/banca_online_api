@@ -47,6 +47,6 @@ public interface EndpointConstants {
 
     String PATH_CONSORTIUM = SLASH_V_1 + CONSORTIUM;
 
-
+    String PATH_RESULT = SLASH_V_1 + LOTTERY_RESULT;
 
 }
