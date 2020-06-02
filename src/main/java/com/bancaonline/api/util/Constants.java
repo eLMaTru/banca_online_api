@@ -92,4 +92,15 @@ public interface Constants {
 
     String VALIDATE_DEVICE_TOKEN = "/validate/device/{token}";
 
+    String LEIDSA_PAGE = "https://www.leidsa.com/";
+
+    String LOTO_REAL_PAGE = "https://www.lotoreal.com.do/";
+
+    String MEGA_LOTO_PAGE = "https://loteka.com.do/megalotto/";
+
+    String MEGA_MILLION = "https://www.flalottery.com/megaMillions";
+
+    String POWER_BALL = "https://www.flalottery.com/powerball";
+
+
 }

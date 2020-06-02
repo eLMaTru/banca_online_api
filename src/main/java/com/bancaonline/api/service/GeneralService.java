@@ -19,26 +19,16 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.bancaonline.api.model.*;
+import com.bancaonline.api.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bancaonline.api.component.ResultJob;
-import com.bancaonline.api.model.AuthDevice;
-import com.bancaonline.api.model.Consortium;
-import com.bancaonline.api.model.ConsortiumToken;
-import com.bancaonline.api.model.CurrencyResult;
-import com.bancaonline.api.model.LotteryResult;
-import com.bancaonline.api.model.LotteryType;
-import com.bancaonline.api.model.Status;
-import com.bancaonline.api.model.TokenType;
 import com.bancaonline.api.model.dto.CurrencyDto;
 import com.bancaonline.api.model.dto.DaysOfWeek;
-import com.bancaonline.api.repository.AuthDeviceRepository;
-import com.bancaonline.api.repository.ConsortiumRepository;
-import com.bancaonline.api.repository.ConsortiumTokenRepository;
-import com.bancaonline.api.repository.LotteryResultRepository;
 import com.bancaonline.api.response.GeneralResponse;
 import com.bancaonline.api.util.Constants;
 
@@ -70,6 +60,9 @@ public class GeneralService {
 
     @Autowired
     private ConsortiumTokenRepository consortiumTokenRepository;
+
+    @Autowired
+    private LotoRepository lotoRepository;
 
     /**
      * Gets fuels.
@@ -293,6 +286,13 @@ public class GeneralService {
         return response;
     }
 
+    /**
+     * Validate device boolean.
+     *
+     * @param ip    the ip
+     * @param token the token
+     * @return the boolean
+     */
     public boolean validateDevice(String ip, String token) {
 
         boolean result = true;
@@ -337,6 +337,13 @@ public class GeneralService {
         return result;
     }
 
+    /**
+     * Create token boolean.
+     *
+     * @param name      the name
+     * @param tokenType the token type
+     * @return the boolean
+     */
     public Boolean createToken(String name, Long tokenType) {
         String urlTemplate = "http://{s3_bucket_name}.s3-website-us-east-1.amazonaws.com/{html_page}?token={device_token}";
         Optional<Consortium> consortium = this.consortiumRepository.findByNameAndStatusId(name,
@@ -368,6 +375,17 @@ public class GeneralService {
         }
 
         return result;
+    }
+
+    /**
+     * Get bote by lottery type loto.
+     *
+     * @param lotteryType the lottery type
+     * @return the loto
+     */
+    public Loto getBoteByLotteryType(LotteryType lotteryType){
+        Status status = new Status(1L);
+        return lotoRepository.findByType(lotteryType, status);
     }
 
 }

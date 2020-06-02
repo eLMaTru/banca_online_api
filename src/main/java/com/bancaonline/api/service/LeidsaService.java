@@ -2,6 +2,7 @@ package com.bancaonline.api.service;
 
 import java.io.IOException;
 
+import com.bancaonline.api.model.Loto;
 import com.bancaonline.api.model.LotteryResult;
 import com.bancaonline.api.repository.LotteryResultRepository;
 
@@ -23,6 +24,7 @@ public class LeidsaService {
     /**
      * Update pega 3 mas results lottery result.
      *
+     * @param date the date
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -41,6 +43,7 @@ public class LeidsaService {
     /**
      * Update quiniela leidsa results lottery result.
      *
+     * @param date the date
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -59,6 +62,7 @@ public class LeidsaService {
     /**
      * Update loto pool results lottery result.
      *
+     * @param date the date
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -77,6 +81,7 @@ public class LeidsaService {
     /**
      * Update super kino results lottery result.
      *
+     * @param date the date
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -96,6 +101,7 @@ public class LeidsaService {
     /**
      * Update loto results lottery result.
      *
+     * @param date the date
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -154,6 +160,25 @@ public class LeidsaService {
      */
     public LotteryResult getLoto() {
         return lotteryResultRepository.findByLotteryTypeIdAndStatusId(4L, 1L);
+    }
+
+    /**
+     * Gets loto bote.
+     *
+     * @throws IOException the io exception
+     */
+    public void updateLotoBote() throws IOException {
+        operationsService.getLotoLeidsaBote();
+    }
+
+
+    /**
+     * Update loto bote.
+     *
+     * @throws IOException the io exception
+     */
+    public void updateManualLotoBote() throws IOException {
+        operationsService.getLotoLeidsaBote();
     }
 
 }
