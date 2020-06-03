@@ -207,12 +207,14 @@ public class GeneralController {
 
         String fullUrl = generalService.findFullUrl(shortToken);
         return fullUrl;
+    }
 
     @RequestMapping(value = "bote", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LotoResponse> getBoteByType(@RequestParam( "LotteryTypeId") Long id) throws IOException {
+    public ResponseEntity<LotoResponse> getBoteByType(@RequestParam("LotteryTypeId") Long id) throws IOException {
 
         LOGGER.info("trying getBote");
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new LotoResponse(generalService.getBoteByLotteryType(new LotteryType(id))));
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(new LotoResponse(generalService.getBoteByLotteryType(new LotteryType(id))));
     }
 
 }
