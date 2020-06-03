@@ -16,10 +16,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.Random;
-
 import com.bancaonline.api.model.*;
 import com.bancaonline.api.repository.*;
 import org.slf4j.Logger;
@@ -52,15 +48,6 @@ public class GeneralService {
 
     @Autowired
     private ResultJob resultJob;
-
-    @Autowired
-    private AuthDeviceRepository authDeviceRepository;
-
-    @Autowired
-    private ConsortiumRepository consortiumRepository;
-
-    @Autowired
-    private ConsortiumTokenRepository consortiumTokenRepository;
 
     @Autowired
     private LotoRepository lotoRepository;
@@ -285,110 +272,6 @@ public class GeneralService {
         }
 
         return response;
-    }
-
-    /**
-     * Validate device boolean.
-     *
-     * @param ip    the ip
-     * @param token the token
-     * @return the boolean
-     */
-    public boolean validateDevice(String ip, String token) {
-
-        boolean result = true;
-        Optional<ConsortiumToken> consortiumToken = this.consortiumTokenRepository.findByTokenAndStatusId(token,
-                Status.Type.ENABLED.getId());
-
-        boolean isPresent = consortiumToken.isPresent();
-        if (isPresent && consortiumToken.get().getStatus().getId() == Status.Type.ENABLED.getId()) {
-
-            Optional<AuthDevice> device = authDeviceRepository.findByTokenAndIpAndStatus(token, ip,
-                    Status.Type.ENABLED.toStatus());
-
-            if (device.isEmpty()) {
-
-                if (!this.authDeviceRepository.existsByIpAndToken(ip, token)) {
-
-                    List<AuthDevice> ads = this.authDeviceRepository.findByTokenAndStatus(token,
-                            Status.Type.ENABLED.toStatus());
-
-                    ads.forEach(ad -> {
-
-                        ad.setStatus(Status.Type.DISABLED.toStatus());
-                        this.authDeviceRepository.save(ad);
-                    });
-
-                    AuthDevice ad = new AuthDevice(ip, token, Status.Type.ENABLED.toStatus());
-                    ad.setCreatedDate(LocalDateTime.now());
-                    authDeviceRepository.save(ad);
-
-                } else {
-
-                    result = false;
-                }
-
-            }
-
-        } else {
-
-            result = false;
-        }
-
-        return result;
-    }
-
-    /**
-     * Create token boolean.
-     *
-     * @param name      the name
-     * @param tokenType the token type
-     * @return the boolean
-     */
-    public Boolean createToken(String name, Long tokenType) {
-        String urlTemplate = "http://{s3_bucket_name}.s3-website-us-east-1.amazonaws.com/{html_page}?token={device_token}";
-        Optional<Consortium> consortium = this.consortiumRepository.findByNameAndStatusId(name,
-                Status.Type.ENABLED.getId());
-
-        boolean result = false;
-
-        if (consortium.isPresent()) {
-            String token = UUID.randomUUID().toString();
-            Random random = new Random();
-
-            String[] tokenParts = token.split("-");
-            String shortToken = tokenParts[0].substring(0, 1) + tokenParts[1].substring(0, 1)
-                    + tokenParts[2].substring(0, 1) + tokenParts[3].substring(0, 1) + tokenParts[4].substring(0, 1)
-                    + random.nextInt(10);
-
-            String shortUrl = urlTemplate.replace("{s3_bucket_name}", consortium.get().getS3BucketName())
-                    .replace("{html_page}", "redirect.html").replace("{device_token}", shortToken)
-                    .replace("token", "shortToken");
-
-            String fullUrl = urlTemplate.replace("{s3_bucket_name}", consortium.get().getS3BucketName())
-                    .replace("{html_page}", "").replace("{device_token}", token);
-
-            ConsortiumToken ct = new ConsortiumToken(consortium.get(), token, Status.Type.ENABLED.toStatus());
-            ct.setTokenType(new TokenType(tokenType));
-            ct.setCreatedDate(LocalDateTime.now());
-            ct.setShortUrl(shortUrl);
-            ct.setShortToken(shortToken);
-            ct.setFullUrl(fullUrl);
-            this.consortiumTokenRepository.save(ct);
-
-            result = true;
-        }
-
-        return result;
-    }
-
-    public String findFullUrl(String shortToken) {
-        String fullUrl = "";
-        Optional<ConsortiumToken> token = consortiumTokenRepository.findByShortToken(shortToken);
-        if (token.isPresent()) {
-            fullUrl = token.get().getFullUrl();
-        }
-        return fullUrl;
     }
 
     /**

@@ -5,25 +5,15 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
 import com.bancaonline.api.model.LotteryType;
 import com.bancaonline.api.model.dto.CurrencyDto;
 import com.bancaonline.api.model.dto.DaysOfWeek;
-import com.bancaonline.api.response.EntityResponse;
 import com.bancaonline.api.response.GeneralResponse;
 import com.bancaonline.api.response.LotoResponse;
 import com.bancaonline.api.service.EmailSender;
 import com.bancaonline.api.service.GeneralService;
 import com.bancaonline.api.util.Constants;
 import com.bancaonline.api.util.EndpointConstants;
-import com.bancaonline.api.util.ValidationPattern;
-
-import org.hibernate.validator.constraints.NotBlank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,29 +174,6 @@ public class GeneralController {
         return ResponseEntity.status(response.isSuccess() ? HttpStatus.NO_CONTENT : HttpStatus.BAD_REQUEST)
                 .body(response);
 
-    }
-
-    @RequestMapping(value = Constants.VALIDATE_DEVICE_TOKEN, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean authDeviceResult(@PathVariable("token") String token, HttpServletRequest request) {
-
-        String ip = request.getRemoteAddr();
-        return generalService.validateDevice(ip, token);
-
-    }
-
-    @RequestMapping(value = "/generate/token/consortium_name/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean generateToken(@PathVariable("name") String name,
-            @NotNull @RequestParam("tokenType") Long tokenType) {
-
-        return generalService.createToken(name, tokenType);
-
-    }
-
-    @GetMapping(value = Constants.FIND_FULL_URL, produces = MediaType.TEXT_PLAIN_VALUE)
-    public String findFullUrl(@NotBlank @RequestParam("shortToken") String shortToken) {
-
-        String fullUrl = generalService.findFullUrl(shortToken);
-        return fullUrl;
     }
 
     @RequestMapping(value = "bote", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

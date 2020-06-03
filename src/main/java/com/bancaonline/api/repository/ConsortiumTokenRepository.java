@@ -1,5 +1,6 @@
 package com.bancaonline.api.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -15,5 +16,7 @@ public interface ConsortiumTokenRepository extends CrudRepository<ConsortiumToke
 	Optional<ConsortiumToken> findByShortUrl(String shortUrl);
 
 	Optional<ConsortiumToken> findByShortToken(String shortToken);
+
+	List<ConsortiumToken> findByConsortiumId(Long id);
 
 }
