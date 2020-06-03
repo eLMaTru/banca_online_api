@@ -23,6 +23,7 @@ public class AmericanaService {
     /**
      * Update new york 1230 results lottery result.
      *
+     * @param date the date
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -41,6 +42,7 @@ public class AmericanaService {
     /**
      * Update new york 730 results lottery result.
      *
+     * @param date the date
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -59,6 +61,7 @@ public class AmericanaService {
     /**
      * Update mega millions result lottery result.
      *
+     * @param date the date
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -77,6 +80,7 @@ public class AmericanaService {
     /**
      * Update power ball result lottery result.
      *
+     * @param date the date
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -127,4 +131,41 @@ public class AmericanaService {
         return lotteryResultRepository.findByLotteryTypeIdAndStatusId(2L, 1L);
     }
 
+
+    /**
+     * Update power ball bote.
+     *
+     * @throws IOException the io exception
+     */
+    public void updatePowerBallBote() throws IOException {
+        operationsService.getPowerBallBote();
+    }
+
+    /**
+     * Update mega million bote.
+     *
+     * @throws IOException the io exception
+     */
+    public void updateMegaMillionBote() throws IOException {
+        operationsService.getMegaMillionBote();
+    }
+
+
+    /**
+     * Update manual meaga milion bote.
+     *
+     * @throws IOException the io exception
+     */
+    public void updateManualMeagaMilionBote() throws IOException {
+        operationsService.getMegaMillionBote();
+    }
+
+    /**
+     * Update manual power ball bote.
+     *
+     * @throws IOException the io exception
+     */
+    public void updateManualPowerBallBote() throws IOException {
+        operationsService.getMegaMillionBote();
+    }
 }

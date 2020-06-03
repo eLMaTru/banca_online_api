@@ -3,6 +3,7 @@ package com.bancaonline.api.controller;
 import java.io.IOException;
 
 import com.bancaonline.api.response.EntityResponse;
+import com.bancaonline.api.response.LotoResponse;
 import com.bancaonline.api.service.LeidsaService;
 import com.bancaonline.api.util.Constants;
 import com.bancaonline.api.util.EndpointConstants;
@@ -107,6 +108,16 @@ public class LeidsaController {
     }
 
 
+    /**
+     * Update manual loto bote.
+     *
+     * @throws IOException the io exception
+     */
+    @RequestMapping(value = "/loto/bote", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateManualLotoBote( ) throws IOException {
 
+        LOGGER.info("trying getSuperKino");
+        leidsaService.updateManualLotoBote();
+    }
 
 }

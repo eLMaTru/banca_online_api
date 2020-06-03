@@ -124,6 +124,18 @@ INSERT INTO develop.lottery_type
     (lottery_type_id, name, description)
 values
     (35, ''LA_PRIMERA'', ''descripcion pendiente'');
+INSERT INTO develop.lottery_type
+    (lottery_type_id, name, description)
+values
+    (36, ''LOTO'', ''descripcion pendiente'');
+INSERT INTO develop.lottery_type
+    (lottery_type_id, name, description)
+values
+    (37, ''SUPER LOTO MAS'', ''descripcion pendiente'');
+INSERT INTO develop.lottery_type
+    (lottery_type_id, name, description)
+values
+    (38, ''LOTO REAL 25 PESOS'', ''descripcion pendiente'');
 END IF;
 
 -- currency_type table --

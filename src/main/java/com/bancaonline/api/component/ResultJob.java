@@ -16,6 +16,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * The type Result job.
+ */
 @Component
 public class ResultJob {
 
@@ -48,6 +51,11 @@ public class ResultJob {
     @Autowired
     private LotteryResultRepository lotteryResultRepository;
 
+    /**
+     * Update juega mas gana mas results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 0 15 ? * SUN,MON,TUE,WED,THU,FRI,SAT")
     @Async
     protected void updateJuegaMasGanaMasResults() throws IOException {
@@ -62,6 +70,11 @@ public class ResultJob {
 
     }
 
+    /**
+     * Update gana mas results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 0 15 ? * 1-7")
     @Async
     protected void updateGanaMasResults() throws IOException {
@@ -75,6 +88,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update quiniela nacional noche results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 5 21 ? * MON,TUE,WED,THU,FRI,SAT")
     @Scheduled(cron = "0 5 18 ? * SUN")
     @Async
@@ -89,6 +107,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update pega 3 mas results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 5 21 ? * MON,TUE,WED,THU,FRI,SAT")
     @Scheduled(cron = "0 5 18 ? * SUN")
     @Async
@@ -103,6 +126,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update loto pool results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 5 21 ? * MON,TUE,WED,THU,FRI,SAT")
     @Scheduled(cron = "0 5 18 ? * SUN")
     @Async
@@ -117,6 +145,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update super kino tv results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 5 21 ? * MON,TUE,WED,THU,FRI,SAT")
     @Scheduled(cron = "0 5 18 ? * SUN")
     @Async
@@ -131,6 +164,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update quiniela leidsa results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 5 21 ? * MON,TUE,WED,THU,FRI,SAT")
     @Scheduled(cron = "0 5 18 ? * SUN")
     @Async
@@ -145,6 +183,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update loto mas results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 5 21 ? * WED,SAT")
     @Async
     protected void updateLotoMasResults() throws IOException {
@@ -158,6 +201,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update quiniela real results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 5 13 ? * 1-7")
     @Async
     protected void updateQuinielaRealResults() throws IOException {
@@ -171,6 +219,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update loto real results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 5 13 ? * TUE,FRI")
     @Async
     protected void updateLotoRealResults() throws IOException {
@@ -184,6 +237,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update quiniela loteka results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 5 19 ? * 1-7")
     @Async
     protected void updateQuinielaLotekaResults() throws IOException {
@@ -197,6 +255,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update mega chance results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 5 19 ? * 1-7")
     @Async
     protected void updateMegaChanceResults() throws IOException {
@@ -210,6 +273,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update la primera quinela results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 05 12 ? * 1-7")
     @Async
     protected void updateLaPrimeraQuinelaResults() throws IOException {
@@ -223,6 +291,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update new york 1230 results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 35 12 ? * 1-7")
     @Async
     protected void updateNewYork1230Results() throws IOException {
@@ -236,6 +309,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update new york 730 results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 35 19 ? * 1-7")
     @Async
     protected void updateNewYork730Results() throws IOException {
@@ -249,6 +327,11 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Mega millions result job.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 1 4 ? * WED,SAT")
     @Async
     protected void mega_millions_result_job() throws IOException {
@@ -264,6 +347,11 @@ public class ResultJob {
 
     }
 
+    /**
+     * Power ball result job.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 2 2 ? * THU,SUN")
     @Async
     protected void powerBallResultJob() throws IOException {
@@ -279,6 +367,11 @@ public class ResultJob {
 
     }
 
+    /**
+     * Mega loto job.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 5 19 ? * MON,THU")
     @Async
     protected void megaLotoJob() throws IOException {
@@ -294,6 +387,11 @@ public class ResultJob {
 
     }
 
+    /**
+     * Update currency results.
+     *
+     * @throws IOException the io exception
+     */
     @Scheduled(cron = "0 30 8 ? * 1-7")
     @Async
     protected void updateCurrencyResults() throws IOException {
@@ -308,6 +406,13 @@ public class ResultJob {
 
     }
 
+    /**
+     * Update all.
+     *
+     * @param date the date
+     * @throws IOException    the io exception
+     * @throws ParseException the parse exception
+     */
     public void updateAll(String date) throws IOException, ParseException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -357,4 +462,54 @@ public class ResultJob {
         }
     }
 
+    /**
+     * Update power ball bote.
+     *
+     * @throws IOException the io exception
+     */
+    @Scheduled(cron = "0 5 21 ? * THU,SUN")
+    @Async
+    protected void updatePowerBallBote() throws IOException {
+        LOGGER.info("update powerBall bote");
+        americanaService.updatePowerBallBote();
+
+    }
+
+    /**
+     * Update mega million bote.
+     *
+     * @throws IOException the io exception
+     */
+    @Scheduled(cron = "0 5 21 ? * WED,SAT")
+    @Async
+    protected void updateMegaMillionBote() throws IOException {
+        LOGGER.info("update mega million bote");
+        americanaService.updatePowerBallBote();
+
+    }
+
+    /**
+     * Update loto leidsa bote.
+     *
+     * @throws IOException the io exception
+     */
+    @Scheduled(cron = "0 5 21 ? * THU,SUN")
+    @Async
+    protected void updateLotoLeidsaBote() throws IOException {
+        LOGGER.info("update loto leidsa bote");
+        leidsaService.updateLotoBote();
+    }
+
+    /**
+     * Update loto real bote.
+     *
+     * @throws IOException the io exception
+     */
+    @Scheduled(cron = "0 5 21 ? * WED,SAT")
+    @Async
+    protected void updateLotoRealBote() throws IOException {
+        LOGGER.info("update loto real bote");
+        realService.updateLotoRealBote();
+
+    }
 }

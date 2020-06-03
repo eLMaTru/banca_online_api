@@ -7,9 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bancaonline.api.model.LotteryResult;
-import com.bancaonline.api.model.LotteryType;
-import com.bancaonline.api.model.Status;
+import com.bancaonline.api.model.*;
+import com.bancaonline.api.repository.LotoRepository;
 import com.bancaonline.api.repository.LotteryResultRepository;
 import com.bancaonline.api.repository.LotteryTypeRepository;
 import com.bancaonline.api.util.Utils;
@@ -33,6 +32,9 @@ public class OperationsService {
     @Autowired
     private LotteryResultRepository lotteryResultRepository;
 
+    /**
+     * The Lottery type repository.
+     */
     @Autowired
     LotteryTypeRepository lotteryTypeRepository;
 
@@ -42,11 +44,14 @@ public class OperationsService {
     @Autowired
     private EmailSender emailSender;
 
+    @Autowired
+    private LotoRepository lotoRepository;
+
     /**
      * Verify result lottery result.
      *
      * @param result      the result
-     * @param LotteryType the lottery type
+     * @param lotteryType the lottery type
      * @return the lottery result
      */
     public LotteryResult verifyResult(String result, Long lotteryType) {
@@ -81,7 +86,7 @@ public class OperationsService {
      * Update result lottery result.
      *
      * @param lastSavedLotteryResult the last saved lottery result
-     * @param lotteryType            the lottery type
+     * @param lotteryTypeId          the lottery type id
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -189,8 +194,8 @@ public class OperationsService {
     /**
      * Update All lotteries results.
      *
-     * @param lastSavedLotteryResult the last saved lottery result
-     * @param lotteryType            the lottery type
+     * @param lotteryTypeId the lottery type id
+     * @param date          the date
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -360,5 +365,228 @@ public class OperationsService {
         return isValid;
 
     }
+
+    /**
+     * Gets loto leidsa bote.
+     *
+     * @throws IOException the io exception
+     */
+    public void getLotoLeidsaBote() throws IOException {
+        try {
+           List<String> result = lotteryResultScrapingService.getLotoLeidsaBote();
+           if (result.isEmpty()){
+               throw new IllegalArgumentException("Error con el scraping");
+           }
+
+           Loto loto = lotoRepository.findByType(new LotteryType(4L),new Status(1L));
+           Loto LotoMas = lotoRepository.findByType(new LotteryType(36L),new Status(1L));
+           Loto SuperMas = lotoRepository.findByType(new LotteryType(37L),new Status(1L));
+
+           /***/
+
+           if (loto != null){
+               if (!loto.getBote().equals(result.get(0).trim())){
+                   lotoRepository.updateByLoteryType(4L,2L);
+                   lotoRepository.save(createLotoObject(result.get(0),
+                           new LotteryType(4L),
+                           "RD",
+                           "Acumulado de la loto"));
+               }
+
+           }else{
+               lotoRepository.save(createLotoObject(result.get(0),
+                       new LotteryType(4L),
+                       "RD",
+                       "Acumulado de la loto"));
+           }
+
+            if (LotoMas != null){
+                if (!LotoMas.getBote().equals(result.get(1).trim())){
+                    lotoRepository.updateByLoteryType(36L,2L);
+                    lotoRepository.save(createLotoObject(result.get(1),
+                            new LotteryType(36L),
+                            "RD",
+                            "Acumulado del loto mas"));
+                }
+
+            }else{
+                lotoRepository.save(createLotoObject(result.get(1),
+                        new LotteryType(36L),
+                        "RD",
+                        "Acumulado de la loto mas"));
+            }
+
+            if (SuperMas != null){
+                if (!SuperMas.getBote().equals(result.get(2).trim())){
+                    lotoRepository.updateByLoteryType(37L,2L);
+                    lotoRepository.save(createLotoObject(result.get(2),
+                            new LotteryType(37L),
+                            "RD",
+                            "Acumulado del super loto mas"));
+                }
+
+            }else{
+                lotoRepository.save(createLotoObject(result.get(2),
+                        new LotteryType(37L),
+                        "RD",
+                        "Acumulado del super loto mas"));
+            }
+
+
+
+        }catch (Exception ex){
+            ex.fillInStackTrace();
+        }
+    }
+
+    private Loto createLotoObject(String bote, LotteryType lotteryType, String currencyCode,String description){
+        Loto loto = new Loto();
+        loto.setBote(bote);
+        loto.setCurrencyCode(currencyCode);
+        loto.setDescription(description);
+        loto.setName(lotteryType.getName());
+        loto.setLotteryType(lotteryType);
+        loto.setStatus(new Status(1L));
+        return loto;
+    }
+
+    /**
+     * Gets loto real bote.
+     *
+     * @throws IOException the io exception
+     */
+    public void getLotoRealBote() throws IOException {
+        try {
+            List<String> result = lotteryResultScrapingService.getLotoRealBote();
+            if (result.isEmpty()){
+                throw new IllegalArgumentException("Error con el scraping");
+            }
+
+            Loto lotoReal = lotoRepository.findByType(new LotteryType(6L),new Status(1L));
+            Loto LotoReal25 = lotoRepository.findByType(new LotteryType(38L),new Status(1L));
+
+            /***/
+
+            if (lotoReal != null){
+                if (!lotoReal.getBote().equals(result.get(0).trim())){
+                    lotoRepository.updateByLoteryType(6L,2L);
+                    lotoRepository.save(createLotoObject(result.get(0).trim(),
+                            new LotteryType(6L),
+                            "RD",
+                            "Acumulado de la loto Real 10 pesos"));
+                }
+
+            }else{
+                lotoRepository.save(createLotoObject(result.get(0).trim(),
+                        new LotteryType(6L),
+                        "RD",
+                        "Acumulado de la loto Real 10 pesos"));
+            }
+
+
+
+            if (LotoReal25 != null){
+                if (!LotoReal25.getBote().equals(result.get(2).trim())){
+                    lotoRepository.updateByLoteryType(38L,2L);
+                    lotoRepository.save(createLotoObject(result.get(2).trim(),
+                            new LotteryType(38L),
+                            "RD",
+                            "Acumulado de la loto Real 25 pesos"));
+                }
+
+            }else{
+                lotoRepository.save(createLotoObject(result.get(2).trim(),
+                        new LotteryType(38L),
+                        "RD",
+                        "Acumulado de la loto Real 25 pesos"));
+            }
+
+
+        }catch (Exception ex){
+            ex.fillInStackTrace();
+        }
+    }
+
+
+    /**
+     * Gets mega million bote.
+     *
+     * @throws IOException the io exception
+     */
+    public void getMegaMillionBote() throws IOException {
+        try {
+            List<String> result = lotteryResultScrapingService.getMegaMillionBote();
+            if (result.isEmpty()){
+                throw new IllegalArgumentException("Error con el scraping");
+            }
+
+            Loto megaMillion = lotoRepository.findByType(new LotteryType(1L),new Status(1L));
+
+            /***/
+
+            if (megaMillion != null){
+                if (!megaMillion.getBote().equals(result.get(0).trim())){
+                    lotoRepository.updateByLoteryType(1L,2L);
+                    lotoRepository.save(createLotoObject(result.get(0).trim(),
+                            new LotteryType(1L),
+                            "US",
+                            "Acumulado del mega millions"));
+                }
+
+            }else{
+                lotoRepository.save(createLotoObject(result.get(0).trim(),
+                        new LotteryType(1L),
+                        "US",
+                        "Acumulado del mega millions"));
+            }
+
+
+
+
+        }catch (Exception ex){
+            ex.fillInStackTrace();
+        }
+    }
+
+    /**
+     * Gets power ball bote.
+     *
+     * @throws IOException the io exception
+     */
+    public void getPowerBallBote() throws IOException {
+        try {
+            List<String> result = lotteryResultScrapingService.getPowerBallBote();
+            if (result.isEmpty()){
+                throw new IllegalArgumentException("Error con el scraping");
+            }
+
+            Loto powerBall = lotoRepository.findByType(new LotteryType(2L),new Status(1L));
+
+            /***/
+
+            if (powerBall != null){
+                if (!powerBall.getBote().equals(result.get(0).trim())){
+                    lotoRepository.updateByLoteryType(2L,2L);
+                    lotoRepository.save(createLotoObject(result.get(0).trim(),
+                            new LotteryType(2L),
+                            "US",
+                            "Acumulado del power ball"));
+                }
+
+            }else{
+                lotoRepository.save(createLotoObject(result.get(0).trim(),
+                        new LotteryType(2L),
+                        "US",
+                        "Acumulado de power ball"));
+            }
+
+
+
+
+        }catch (Exception ex){
+            ex.fillInStackTrace();
+        }
+    }
+
 
 }

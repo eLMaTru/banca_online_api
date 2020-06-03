@@ -80,7 +80,7 @@ public interface Constants {
 
     String QUINIELA_LA_PRIMERA_URL = "https://loteriasdominicanas.com/la-primera/quiniela-medio-dia";
 
-    String FUEL = "https://tarifasrd.com/services/all";
+    String FUEL = "http://apirest.myartsonline.com/combustibleApi/combustibleApiJson.php?url=getFuelForBanca";
 
     String DIVISA_DOLLAR = "https://transferwise.com/gb/currency-converter/usd-to-dop-rate?amount=1";
 
@@ -93,5 +93,14 @@ public interface Constants {
     String VALIDATE_DEVICE_TOKEN = "/validate/device/{token}";
 
     String FIND_FULL_URL = "/device/token";
+    String LEIDSA_PAGE = "https://www.leidsa.com/";
+
+    String LOTO_REAL_PAGE = "https://www.lotoreal.com.do/";
+
+    String MEGA_LOTO_PAGE = "https://loteka.com.do/megalotto/";
+
+    String MEGA_MILLION = "https://www.flalottery.com/megaMillions";
+
+    String POWER_BALL = "https://www.flalottery.com/powerball";
 
 }

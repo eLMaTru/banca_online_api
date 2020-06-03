@@ -262,4 +262,76 @@ public class LotteryResultScrapingService {
         return results;
     }
 
+    public List<String> getLotoLeidsaBote() throws IOException {
+
+        List<String> strings = new ArrayList<>();
+
+        Document doc = Jsoup.connect(Constants.LEIDSA_PAGE).get();
+        Elements values = doc.select(".panel-body-millones-acumulados");
+        Elements lotos = values.select(".wraper-millones-acumulados");
+
+        if (lotos.isEmpty()){
+            throw new IllegalArgumentException("NO se pudo hacer el scraping");
+        }
+        strings.add(lotos.select("p").get(0).text());
+        strings.add(lotos.select("p").get(2).text());
+        strings.add(lotos.select("p").get(4).text());
+
+       return strings;
+    }
+
+    public List<String> getLotoRealBote() throws IOException {
+
+        List<String> strings = new ArrayList<>();
+
+        Document doc = Jsoup.connect(Constants.LOTO_REAL_PAGE).get();
+        Elements values = doc.select(".tm-jugadas");
+        Elements lotos = values.select("#rc-millones-acumulados");
+
+        if (lotos.isEmpty()){
+            throw new IllegalArgumentException("NO se pudo hacer el scraping");
+        }
+        strings.add(lotos.get(0).select("h2").text());
+        strings.add(lotos.get(1).select("h2").text());
+
+        return strings;
+    }
+
+    public List<String> getMegaMillionBote() throws IOException {
+
+        List<String> strings = new ArrayList<>();
+
+        Document doc = Jsoup.connect(Constants.MEGA_MILLION).get();
+        Elements values = doc.select("#gameContentLeft");
+        Elements megaMillion = values.select(".gamePageNumbers");
+        Elements result = values.select("p");
+
+
+        if (megaMillion.isEmpty()){
+            throw new IllegalArgumentException("NO se pudo hacer el scraping");
+        }
+        strings.add(result.get(2).text().replaceAll("[a-zA-z$]",""));
+
+        return strings;
+    }
+
+    public List<String> getPowerBallBote() throws IOException {
+
+        List<String> strings = new ArrayList<>();
+
+        Document doc = Jsoup.connect(Constants.POWER_BALL).get();
+        Elements values = doc.select("#gameContentLeft");
+        Elements megaMillion = values.select(".gamePageNumbers");
+        Elements result = values.select("p");
+
+
+        if (megaMillion.isEmpty()){
+            throw new IllegalArgumentException("NO se pudo hacer el scraping");
+        }
+        strings.add(result.get(2).text().replaceAll("[a-zA-z$]",""));
+
+        return strings;
+    }
+
+
 }

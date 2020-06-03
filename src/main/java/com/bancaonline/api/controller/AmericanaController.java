@@ -88,4 +88,28 @@ public class AmericanaController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new EntityResponse(americanaService.getPowerBall()));
 
     }
+
+    /**
+     * Update manual mega milion.
+     *
+     * @throws IOException the io exception
+     */
+    @RequestMapping(value = "/mega-million/bote", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateManualMegaMilion( ) throws IOException {
+
+        LOGGER.info("trying update bote");
+        americanaService.updateManualMeagaMilionBote();
+    }
+
+    /**
+     * Update manual power ball.
+     *
+     * @throws IOException the io exception
+     */
+    @RequestMapping(value = "/power-ball/bote", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateManualPowerBall( ) throws IOException {
+
+        LOGGER.info("trying update bote");
+        americanaService.updatePowerBallBote();
+    }
 }

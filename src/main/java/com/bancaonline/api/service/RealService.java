@@ -23,6 +23,7 @@ public class RealService {
     /**
      * Update loto real results lottery result.
      *
+     * @param date the date
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -41,6 +42,7 @@ public class RealService {
     /**
      * Update quiniela real results lottery result.
      *
+     * @param date the date
      * @return the lottery result
      * @throws IOException the io exception
      */
@@ -74,4 +76,21 @@ public class RealService {
         return lotteryResultRepository.findByLotteryTypeIdAndStatusId(21L, 1L);
     }
 
+    /**
+     * Update loto real bote.
+     *
+     * @throws IOException the io exception
+     */
+    public void updateLotoRealBote() throws IOException {
+        operationsService.getLotoRealBote();
+    }
+
+    /**
+     * Update loto bote.
+     *
+     * @throws IOException the io exception
+     */
+    public void updateManualRealBote() throws IOException {
+        operationsService.getLotoLeidsaBote();
+    }
 }

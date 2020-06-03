@@ -67,5 +67,17 @@ public class RealController {
 
     }
 
+    /**
+     * Update manual loto bote.
+     *
+     * @throws IOException the io exception
+     */
+    @RequestMapping(value = "/real/bote", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateManualLotoBote( ) throws IOException {
+
+        LOGGER.info("trying update bote");
+        realService.updateManualRealBote();
+    }
+
 
 }

@@ -16,11 +16,11 @@ public class EntityResponse {
 
     private String winnigNumbers;
 
-    private Status status;
+    private long statusId;
 
-    private LotteryType lotteryType;
+    private long lotteryTypeId;
 
-    private LocalDateTime createdDate;
+    private String createdDate;
 
     private String drawingDate;
 
@@ -31,9 +31,9 @@ public class EntityResponse {
         if (lotteryResult != null) {
             this.id = lotteryResult.getId();
             this.winnigNumbers = lotteryResult.getWinningNumbers();
-            this.status = lotteryResult.getStatus();
-            this.lotteryType = lotteryResult.getLotteryType();
-            this.createdDate = lotteryResult.getCreatedDate();
+            this.statusId = lotteryResult.getStatus().getId();
+            this.lotteryTypeId = lotteryResult.getLotteryType().getId();
+            this.createdDate = lotteryResult.getCreatedDate().toString();
             this.drawingDate = lotteryResult.getDrawingDate();
             this.winnigNumbersList = lotteryResult.getWinningNumbersList();
         }
@@ -81,8 +81,8 @@ public class EntityResponse {
      *
      * @return the status
      */
-    public Status getStatus() {
-        return status;
+    public long getStatusId() {
+        return statusId;
     }
 
     /**
@@ -90,45 +90,11 @@ public class EntityResponse {
      *
      * @param status the status
      */
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatusId(long statusId) {
+        this.statusId = statusId;
     }
 
-    /**
-     * Gets lottery type.
-     *
-     * @return the lottery type
-     */
-    public LotteryType getLotteryType() {
-        return lotteryType;
-    }
-
-    /**
-     * Sets lottery type.
-     *
-     * @param lotteryType the lottery type
-     */
-    public void setLotteryType(LotteryType lotteryType) {
-        this.lotteryType = lotteryType;
-    }
-
-    /**
-     * Gets created date.
-     *
-     * @return the created date
-     */
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    /**
-     * Sets created date.
-     *
-     * @param createdDate the created date
-     */
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
+   
 
     /**
      * Gets drawing date.
@@ -165,4 +131,31 @@ public class EntityResponse {
     public void setWinnigNumbersList(List<String> winnigNumbersList) {
         this.winnigNumbersList = winnigNumbersList;
     }
+
+	public long getLotteryTypeId() {
+		return lotteryTypeId;
+	}
+
+	public void setLotteryTypeId(long lotteryTypeId) {
+		this.lotteryTypeId = lotteryTypeId;
+	}
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getWinnigNumbers() {
+		return winnigNumbers;
+	}
+
+	public List<String> getWinnigNumbersList() {
+		return winnigNumbersList;
+	}
+    
+    
+    
 }
