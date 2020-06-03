@@ -92,4 +92,6 @@ public interface Constants {
 
     String VALIDATE_DEVICE_TOKEN = "/validate/device/{token}";
 
+    String FIND_FULL_URL = "/device/token";
+
 }

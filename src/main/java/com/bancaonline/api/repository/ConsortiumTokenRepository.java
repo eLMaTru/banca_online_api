@@ -12,4 +12,8 @@ public interface ConsortiumTokenRepository extends CrudRepository<ConsortiumToke
 
 	Optional<ConsortiumToken> findByTokenAndStatusId(String token, Long statusId);
 
+	Optional<ConsortiumToken> findByShortUrl(String shortUrl);
+
+	Optional<ConsortiumToken> findByShortToken(String shortToken);
+
 }

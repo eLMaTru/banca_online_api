@@ -199,4 +199,12 @@ public class GeneralController {
 
     }
 
+    @GetMapping(value = Constants.FIND_FULL_URL, produces = MediaType.TEXT_PLAIN_VALUE)
+    public String findFullUrl(@NotBlank @RequestParam("shortToken") String shortToken) {
+
+        String fullUrl = generalService.findFullUrl(shortToken);
+        return fullUrl;
+
+    }
+
 }

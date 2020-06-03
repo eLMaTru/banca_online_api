@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -346,13 +347,16 @@ public class GeneralService {
 
         if (consortium.isPresent()) {
             String token = UUID.randomUUID().toString();
+            Random random = new Random();
 
             String[] tokenParts = token.split("-");
             String shortToken = tokenParts[0].substring(0, 1) + tokenParts[1].substring(0, 1)
-                    + tokenParts[2].substring(0, 1) + tokenParts[3].substring(0, 1) + tokenParts[4].substring(0, 1);
+                    + tokenParts[2].substring(0, 1) + tokenParts[3].substring(0, 1) + tokenParts[4].substring(0, 1)
+                    + random.nextInt(10);
 
             String shortUrl = urlTemplate.replace("{s3_bucket_name}", consortium.get().getS3BucketName())
-                    .replace("{html_page}", "redirect.html").replace("{device_token}", shortToken);
+                    .replace("{html_page}", "redirect.html").replace("{device_token}", shortToken)
+                    .replace("token", "shortToken");
 
             String fullUrl = urlTemplate.replace("{s3_bucket_name}", consortium.get().getS3BucketName())
                     .replace("{html_page}", "").replace("{device_token}", token);
@@ -361,6 +365,7 @@ public class GeneralService {
             ct.setTokenType(new TokenType(tokenType));
             ct.setCreatedDate(LocalDateTime.now());
             ct.setShortUrl(shortUrl);
+            ct.setShortToken(shortToken);
             ct.setFullUrl(fullUrl);
             this.consortiumTokenRepository.save(ct);
 
@@ -368,6 +373,15 @@ public class GeneralService {
         }
 
         return result;
+    }
+
+    public String findFullUrl(String shortToken) {
+        String fullUrl = "";
+        Optional<ConsortiumToken> token = consortiumTokenRepository.findByShortToken(shortToken);
+        if (token.isPresent()) {
+            fullUrl = token.get().getFullUrl();
+        }
+        return fullUrl;
     }
 
 }
