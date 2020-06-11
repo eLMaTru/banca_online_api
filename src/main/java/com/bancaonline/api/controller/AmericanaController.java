@@ -110,6 +110,34 @@ public class AmericanaController {
     public void updateManualPowerBall( ) throws IOException {
 
         LOGGER.info("trying update bote");
-        americanaService.updatePowerBallBote();
+        americanaService.updateManualPowerBallBote();
+    }
+
+    /**
+     * Gets florida day.
+     *
+     * @return the florida day
+     * @throws IOException the io exception
+     */
+    @RequestMapping(value = "florida-day", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EntityResponse> getFloridaDay() throws IOException {
+
+        LOGGER.info("trying getFloridaDay");
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new EntityResponse(americanaService.getFloridaDay()));
+
+    }
+
+    /**
+     * Gets florida night.
+     *
+     * @return the florida night
+     * @throws IOException the io exception
+     */
+    @RequestMapping(value = "florida-nigth", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EntityResponse> getFloridaNight() throws IOException {
+
+        LOGGER.info("trying getFloridaNigth");
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new EntityResponse(americanaService.getFloridaNigth()));
+
     }
 }

@@ -333,5 +333,15 @@ public class LotteryResultScrapingService {
         return strings;
     }
 
+    public List<String> floridaDayResult(String date) throws IOException {
 
+        return getLotteryByURL(Constants.FLORIDA_DAY, date);
+
+    }
+
+    public List<String> floridaNightResult(String date) throws IOException {
+
+        return getLotteryByURL(Constants.FLORIDA_NIGHT, date);
+
+    }
 }

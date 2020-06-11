@@ -168,4 +168,62 @@ public class AmericanaService {
     public void updateManualPowerBallBote() throws IOException {
         operationsService.getMegaMillionBote();
     }
+
+
+    /**
+     * Update florida day lottery result.
+     *
+     * @param date the date
+     * @return the lottery result
+     * @throws IOException the io exception
+     */
+    public LotteryResult updateFloridaDay(String date) throws IOException {
+        LotteryResult lotteryResult = null;
+
+        if (date == null) {
+            LotteryResult lastSavedLotteryResult = operationsService.verifyResult("00, 00, 00", 39L);
+            lotteryResult = operationsService.UpdateResult(lastSavedLotteryResult, 39L);
+        } else {
+            lotteryResult = operationsService.UpdateResultByDate(39L, date);
+        }
+        return lotteryResult;
+    }
+
+    /**
+     * Update florida night lottery result.
+     *
+     * @param date the date
+     * @return the lottery result
+     * @throws IOException the io exception
+     */
+    public LotteryResult updateFloridaNight(String date) throws IOException {
+        LotteryResult lotteryResult = null;
+
+        if (date == null) {
+            LotteryResult lastSavedLotteryResult = operationsService.verifyResult("00, 00, 00", 40L);
+            lotteryResult = operationsService.UpdateResult(lastSavedLotteryResult, 40L);
+        } else {
+            lotteryResult = operationsService.UpdateResultByDate(40L, date);
+        }
+        return lotteryResult;
+    }
+
+    /**
+     * Gets florida day.
+     *
+     * @return the florida day
+     */
+    public LotteryResult getFloridaDay() {
+        return lotteryResultRepository.findByLotteryTypeIdAndStatusId(39L, 1L);
+    }
+
+    /**
+     * Gets florida nigth.
+     *
+     * @return the florida nigth
+     */
+    public LotteryResult getFloridaNigth() {
+        return lotteryResultRepository.findByLotteryTypeIdAndStatusId(40L, 1L);
+    }
+
 }

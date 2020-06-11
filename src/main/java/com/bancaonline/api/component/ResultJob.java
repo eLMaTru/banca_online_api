@@ -484,7 +484,7 @@ public class ResultJob {
     @Async
     protected void updateMegaMillionBote() throws IOException {
         LOGGER.info("update mega million bote");
-        americanaService.updatePowerBallBote();
+        americanaService.updateMegaMillionBote();
 
     }
 
@@ -512,4 +512,41 @@ public class ResultJob {
         realService.updateLotoRealBote();
 
     }
+
+    /**
+     * Update florida nigth results.
+     *
+     * @throws IOException the io exception
+     */
+    @Scheduled(cron = "0 15 20 ? * 1-7")
+    @Async
+    protected void updateFloridaNigthResults() throws IOException {
+        LotteryResult lotteryResult = americanaService.updateFloridaNight(null);
+        String result = lotteryResult == null ? "failed" : lotteryResult.toString();
+        String msj = "floridaNoche job executed with result: ".concat(result);
+        if (result.equals("failed")) {
+            LOGGER.error(msj);
+        } else {
+            LOGGER.info(msj);
+        }
+    }
+
+    /**
+     * Update florida day results.
+     *
+     * @throws IOException the io exception
+     */
+    @Scheduled(cron = "0 5 14 ? * 1-7")
+    @Async
+    protected void updateFloridaDayResults() throws IOException {
+        LotteryResult lotteryResult = americanaService.updateFloridaDay(null);
+        String result = lotteryResult == null ? "failed" : lotteryResult.toString();
+        String msj = "floridaDia job executed with result: ".concat(result);
+        if (result.equals("failed")) {
+            LOGGER.error(msj);
+        } else {
+            LOGGER.info(msj);
+        }
+    }
+
 }

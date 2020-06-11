@@ -102,5 +102,7 @@ public interface Constants {
 
     String POWER_BALL = "https://www.flalottery.com/powerball";
 
+    String FLORIDA_DAY = "https://loteriasdominicanas.com/americanas/florida-tarde";
 
+    String FLORIDA_NIGHT = "https://loteriasdominicanas.com/americanas/florida-noche";
 }

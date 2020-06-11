@@ -136,8 +136,15 @@ INSERT INTO develop.lottery_type
     (lottery_type_id, name, description)
 values
     (38, ''LOTO REAL 25 PESOS'', ''descripcion pendiente'');
+INSERT INTO develop.lottery_type
+    (lottery_type_id, name, description)
+values
+    (39, ''FLORIDA TARDE'', ''descripcion pendiente'');
+INSERT INTO develop.lottery_type
+    (lottery_type_id, name, description)
+values
+    (40, ''FLORIDA NOCHE'', ''descripcion pendiente'');
 END IF;
-
 -- currency_type table --
 IF (
     select

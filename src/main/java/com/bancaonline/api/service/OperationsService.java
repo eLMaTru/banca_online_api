@@ -301,7 +301,12 @@ public class OperationsService {
         case 35:
             results = lotteryResultScrapingService.laPrimeraQuinielaScrapingResult(date);
             break;
-
+         case 39:
+            results = lotteryResultScrapingService.floridaDayResult(date);
+             break;
+         case 40:
+             results = lotteryResultScrapingService.floridaNightResult(date);
+             break;
         }
 
         return results;
