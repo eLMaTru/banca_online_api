@@ -92,6 +92,7 @@ public interface Constants {
 
     String VALIDATE_DEVICE_TOKEN = "/validate/device/{token}";
 
+    String FIND_FULL_URL = "/device/token";
     String LEIDSA_PAGE = "https://www.leidsa.com/";
 
     String LOTO_REAL_PAGE = "https://www.lotoreal.com.do/";

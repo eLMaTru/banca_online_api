@@ -40,6 +40,10 @@ public class ConsortiumToken implements Serializable {
 	@Size(min = 10, max = 100)
 	private String shortUrl;
 
+	@Column(name = "short_token")
+	@Size(min = 5, max = 10)
+	private String shortToken;
+
 	@Column(name = "full_url")
 	@Size(min = 10, max = 400)
 	private String fullUrl;
@@ -137,6 +141,14 @@ public class ConsortiumToken implements Serializable {
 
 	public void setFullUrl(String fullUrl) {
 		this.fullUrl = fullUrl;
+	}
+
+	public String getShortToken() {
+		return shortToken;
+	}
+
+	public void setShortToken(String shortToken) {
+		this.shortToken = shortToken;
 	}
 
 }
