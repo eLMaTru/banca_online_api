@@ -104,7 +104,7 @@ public class GeneralService {
 
         List<Loto> allResult = lotoRepository.findAllLottoByStatus(statusId);
 
-        allResult.stream().forEach(x -> stringStringHashMap.put(x.getLotteryType().getName(), x.getBote()));
+        allResult.stream().forEach(x -> stringStringHashMap.put(x.getLotteryType().getName(), x.getBote() + "," + x.getCurrencyCode()));
 
         return stringStringHashMap;
     }
