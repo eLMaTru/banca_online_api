@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.bancaonline.api.model.Loto;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public interface LotoRepository extends CrudRepository<Loto, String> {
@@ -22,5 +23,8 @@ public interface LotoRepository extends CrudRepository<Loto, String> {
     @Modifying
     @Query("update Loto loto set loto.status.id = :statusId where loto.lotteryType.id= :lotteryTypeId")
     void updateByLoteryType(@Param("lotteryTypeId") Long lotteryTypeId, @Param("statusId") Long statusId);
+
+    @Query("SELECT d FROM Loto d where d.status.id = :status")
+    List<Loto> findAllLottoByStatus(@Param("status") Long status);
 
 }

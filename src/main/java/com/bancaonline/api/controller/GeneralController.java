@@ -184,4 +184,11 @@ public class GeneralController {
                 .body(new LotoResponse(generalService.getBoteByLotteryType(new LotteryType(id))));
     }
 
+    @RequestMapping(value = "all/bote", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, String>> getAllBoteByStatus(@RequestParam("statusId") Long id) throws IOException {
+
+        LOGGER.info("trying getAllBote");
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(generalService.getALLBoteByStatus(id));
+    }
 }
