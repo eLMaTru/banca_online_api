@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 
+import com.bancaonline.api.model.AuthDevice;
 import com.bancaonline.api.model.Consortium;
 import com.bancaonline.api.model.ConsortiumToken;
 import com.bancaonline.api.service.ConsortiumService;
@@ -21,6 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +31,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * The type Consortium Controller
@@ -127,14 +129,14 @@ public class ConsortiumController {
 
     }
 
-    @RequestMapping(value = "/token/consortium/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ConsortiumToken>> findTokenByConsortiumId(Long id) {
+    @RequestMapping(value = "/token/consortium", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ConsortiumToken>> findTokenByConsortiumId(@RequestParam("id") Long id) {
         List<ConsortiumToken> list = consortiumTokenService.findByConsortiumId(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(list);
     }
 
     @RequestMapping(value = "/token/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean deleteTokenById(@PathVariable("id") Long id) {
+    public Boolean deleteTokenById(@PathVariable("id") Long id, HttpServletRequest request) {
 
         Boolean deleted = false;
         consortiumTokenService.delete(id);
@@ -157,5 +159,51 @@ public class ConsortiumController {
 
         String fullUrl = consortiumTokenService.findFullUrl(shortToken);
         return fullUrl;
+    }
+
+    @RequestMapping(value = "/token/status/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ConsortiumToken>> findByTokenStatusId(@PathVariable("id") Long statusId) {
+        List<ConsortiumToken> list = consortiumTokenService.findByStatusId(statusId);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(list);
+    }
+
+    @RequestMapping(value = "/token/consortium/{name}/status/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ConsortiumToken>> findByConsortiumNameAndTokenStatusId(
+            @PathVariable("name") String consortiumName, @PathVariable("id") Long statusId) {
+        List<ConsortiumToken> list = consortiumTokenService.findByConsortiumNameAndTokenStatusId(consortiumName,
+                statusId);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(list);
+    }
+
+    @RequestMapping(value = "/token/consortium/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ConsortiumToken>> findTokenByConsortiumName(
+            @PathVariable("name") String consortiumName) {
+        List<ConsortiumToken> list = consortiumTokenService.findByConsortiumName(consortiumName);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(list);
+    }
+
+    @RequestMapping(value = "/token/consortium/{name}/used/{is_used}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ConsortiumToken>> findTokenByAvailabilityAndConsortiumName(
+            @PathVariable("is_used") boolean isUsed, @PathVariable("name") String consortiumName) {
+        List<ConsortiumToken> list = consortiumTokenService.findByIsUsedAndConsortiumName(isUsed, consortiumName);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(list);
+    }
+
+    @RequestMapping(value = "/token/used/{is_used}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ConsortiumToken>> findTokensByAvailability(@PathVariable("is_used") boolean isUsed) {
+        List<ConsortiumToken> list = consortiumTokenService.findByIsUsed(isUsed);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(list);
+    }
+
+    @DeleteMapping(value = "/device/{token}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean cleanIpsByToken(@PathVariable("token") String token) {
+        return consortiumTokenService.cleanIpsByToken(token);
+    }
+
+    @GetMapping(value = "/device/{token}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<AuthDevice>> findAuthDevicesByToken(@PathVariable("token") String token) {
+
+        List<AuthDevice> list = consortiumTokenService.findAuthDevicesByToken(token);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(list);
     }
 }

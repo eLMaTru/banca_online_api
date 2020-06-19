@@ -60,6 +60,9 @@ public class ConsortiumToken implements Serializable {
 	@NotNull
 	private TokenType tokenType;
 
+	@Column(name = "is_used")
+	private Boolean isUsed;
+
 	public ConsortiumToken() {
 		super();
 	}
@@ -149,6 +152,14 @@ public class ConsortiumToken implements Serializable {
 
 	public void setShortToken(String shortToken) {
 		this.shortToken = shortToken;
+	}
+
+	public Boolean isUsed() {
+		return isUsed;
+	}
+
+	public void setUsed(Boolean isUsed) {
+		this.isUsed = isUsed;
 	}
 
 }

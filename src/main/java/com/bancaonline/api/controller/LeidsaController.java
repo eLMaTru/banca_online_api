@@ -3,7 +3,6 @@ package com.bancaonline.api.controller;
 import java.io.IOException;
 
 import com.bancaonline.api.response.EntityResponse;
-import com.bancaonline.api.response.LotoResponse;
 import com.bancaonline.api.service.LeidsaService;
 import com.bancaonline.api.util.Constants;
 import com.bancaonline.api.util.EndpointConstants;
@@ -45,7 +44,7 @@ public class LeidsaController {
      * @throws IOException the io exception
      */
     @RequestMapping(value = Constants.ENDPOINT_QUINIELA_REAL, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityResponse> getQuiniela( ) throws IOException {
+    public ResponseEntity<EntityResponse> getQuiniela() throws IOException {
 
         LOGGER.info("trying getQuinielaLeidsa");
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new EntityResponse(leidsaService.getQuinielaLeidsa()));
@@ -58,7 +57,7 @@ public class LeidsaController {
      * @throws IOException the io exception
      */
     @RequestMapping(value = Constants.ENDPOINT_PEGA3MAS_LEIDA, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityResponse> getPega3Mas( ) throws IOException {
+    public ResponseEntity<EntityResponse> getPega3Mas() throws IOException {
 
         LOGGER.info("trying getPega3Mas");
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new EntityResponse(leidsaService.getPega3mas()));
@@ -72,7 +71,7 @@ public class LeidsaController {
      * @throws IOException the io exception
      */
     @RequestMapping(value = Constants.ENDPOINT_LOTOMAS_LEIDA, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityResponse> getLotoMas( ) throws IOException {
+    public ResponseEntity<EntityResponse> getLotoMas() throws IOException {
 
         LOGGER.info("trying getLotoMas");
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new EntityResponse(leidsaService.getLoto()));
@@ -86,7 +85,7 @@ public class LeidsaController {
      * @throws IOException the io exception
      */
     @RequestMapping(value = Constants.ENDPOINT_LOTOPOOL_LEIDA, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityResponse> getLotoPool( ) throws IOException {
+    public ResponseEntity<EntityResponse> getLotoPool() throws IOException {
 
         LOGGER.info("trying getLotoPool");
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new EntityResponse(leidsaService.getLotoPool()));
@@ -100,13 +99,12 @@ public class LeidsaController {
      * @throws IOException the io exception
      */
     @RequestMapping(value = Constants.ENDPOINT_SUPER_QUINO_LEIDA, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityResponse> getSuperQuino( ) throws IOException {
+    public ResponseEntity<EntityResponse> getSuperQuino() throws IOException {
 
         LOGGER.info("trying getSuperKino");
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new EntityResponse(leidsaService.getSuperKino()));
 
     }
-
 
     /**
      * Update manual loto bote.
@@ -114,7 +112,7 @@ public class LeidsaController {
      * @throws IOException the io exception
      */
     @RequestMapping(value = "/loto/bote", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void updateManualLotoBote( ) throws IOException {
+    public void updateManualLotoBote() throws IOException {
 
         LOGGER.info("trying getSuperKino");
         leidsaService.updateManualLotoBote();

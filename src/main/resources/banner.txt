@@ -12,6 +12,6 @@
                                                                                                                           | $$          
                                                                                                                            \$$                           
 
-					            ${Ansi.BLUE} :: web-service Developed by Servytechnologies inc. :: 
+					            ${Ansi.BLUE} :: web-service Developed by Horizon High technologies inc. :: 
                      
                      

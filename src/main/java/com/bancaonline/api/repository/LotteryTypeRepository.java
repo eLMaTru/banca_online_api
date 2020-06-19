@@ -1,5 +1,7 @@
 package com.bancaonline.api.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import com.bancaonline.api.model.LotteryType;
@@ -21,5 +23,7 @@ public interface LotteryTypeRepository extends CrudRepository<LotteryType, Long>
      */
     @Transactional
     LotteryType findById(Long lotteryTypeId);
+
+    List<LotteryType> findAll();
 
 }

@@ -20,12 +20,14 @@ public interface EndpointConstants {
     String AMERICANA = "/americana";
 
     String GENERAL = "/general";
-    
+
     String ADMIN = "/admin";
 
     String CONSORTIUM = "/consortium";
-    
+
     String LOTTERY_RESULT = "/lottery-result";
+
+    String HISTORY = "/history";
 
     String PATH_REAL = SLASH_V_1 + REAL;
 
@@ -40,13 +42,15 @@ public interface EndpointConstants {
     String PATH_AMERICANA = SLASH_V_1 + AMERICANA;
 
     String PATH_GENERAL = SLASH_V_1 + GENERAL;
-    
-    String PATH_ADMIN =  SLASH_V_1 + ADMIN;
-    
+
+    String PATH_ADMIN = SLASH_V_1 + ADMIN;
+
     String PATH_LOTTERY_RESULT = SLASH_V_1 + LOTTERY_RESULT;
 
     String PATH_CONSORTIUM = SLASH_V_1 + CONSORTIUM;
 
     String PATH_RESULT = SLASH_V_1 + LOTTERY_RESULT;
+
+    String PATH_RESULT_HISTORY = SLASH_V_1 + LOTTERY_RESULT + HISTORY;
 
 }
