@@ -51,6 +51,9 @@ public class ResultJob {
     @Autowired
     private LotteryResultRepository lotteryResultRepository;
 
+    @Autowired
+    private ConsortiumTokenService consortiumTokenService;
+
     /**
      * Update juega mas gana mas results.
      *
@@ -547,6 +550,20 @@ public class ResultJob {
         } else {
             LOGGER.info(msj);
         }
+    }
+
+    /**
+     * This job remove all records from auth_device table all days at 1:00 am.
+     *
+     * @throws IOException the io exception
+     */
+    @Scheduled(cron = "00 00 01 ? * 1-7")
+    @Async
+    protected void cleanAllIps() throws IOException {
+
+        LOGGER.info("Removing all records from auth_device table ...");
+        consortiumTokenService.cleanAllIps();
+
     }
 
 }
