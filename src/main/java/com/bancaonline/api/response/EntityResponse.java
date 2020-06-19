@@ -1,10 +1,6 @@
 package com.bancaonline.api.response;
 
 import com.bancaonline.api.model.LotteryResult;
-import com.bancaonline.api.model.LotteryType;
-import com.bancaonline.api.model.Status;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -94,8 +90,6 @@ public class EntityResponse {
         this.statusId = statusId;
     }
 
-   
-
     /**
      * Gets drawing date.
      *
@@ -132,30 +126,28 @@ public class EntityResponse {
         this.winnigNumbersList = winnigNumbersList;
     }
 
-	public long getLotteryTypeId() {
-		return lotteryTypeId;
-	}
+    public long getLotteryTypeId() {
+        return lotteryTypeId;
+    }
 
-	public void setLotteryTypeId(long lotteryTypeId) {
-		this.lotteryTypeId = lotteryTypeId;
-	}
+    public void setLotteryTypeId(long lotteryTypeId) {
+        this.lotteryTypeId = lotteryTypeId;
+    }
 
-	public String getCreatedDate() {
-		return createdDate;
-	}
+    public String getCreatedDate() {
+        return createdDate;
+    }
 
-	public void setCreatedDate(String createdDate) {
-		this.createdDate = createdDate;
-	}
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
 
-	public String getWinnigNumbers() {
-		return winnigNumbers;
-	}
+    public String getWinnigNumbers() {
+        return winnigNumbers;
+    }
 
-	public List<String> getWinnigNumbersList() {
-		return winnigNumbersList;
-	}
-    
-    
-    
+    public List<String> getWinnigNumbersList() {
+        return winnigNumbersList;
+    }
+
 }

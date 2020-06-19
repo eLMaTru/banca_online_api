@@ -200,6 +200,11 @@ public class ConsortiumController {
         return consortiumTokenService.cleanIpsByToken(token);
     }
 
+    @DeleteMapping(value = "/device", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean cleanAllIps() {
+        return consortiumTokenService.cleanAllIps();
+    }
+
     @GetMapping(value = "/device/{token}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AuthDevice>> findAuthDevicesByToken(@PathVariable("token") String token) {
 

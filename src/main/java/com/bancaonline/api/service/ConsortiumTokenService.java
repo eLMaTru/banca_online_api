@@ -210,6 +210,13 @@ public class ConsortiumTokenService {
 
     }
 
+    public boolean cleanAllIps() {
+
+        authDeviceRepository.deleteAll();
+        return true;
+
+    }
+
     public List<AuthDevice> findAuthDevicesByToken(String token) {
 
         return authDeviceRepository.findByToken(token);
