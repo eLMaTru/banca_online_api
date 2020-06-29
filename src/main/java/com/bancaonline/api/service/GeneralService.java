@@ -97,16 +97,14 @@ public class GeneralService {
         return stringStringHashMap;
     }
 
-    public HashMap<String, String> getALLBoteByStatus(Long statusId) {
+    public List<Loto> getALLBoteByStatus(Long statusId) {
         LOGGER.info("getting all bote by status :" + statusId);
 
         HashMap<String, String> stringStringHashMap = new HashMap<>();
 
         List<Loto> allResult = lotoRepository.findAllLottoByStatus(statusId);
 
-        allResult.stream().forEach(x -> stringStringHashMap.put(x.getLotteryType().getName(), x.getBote() + "," + x.getCurrencyCode()));
-
-        return stringStringHashMap;
+        return allResult;
     }
 
     /**

@@ -117,7 +117,7 @@ public class LeidsaController {
     public void updateManualLotoBote( ) throws IOException {
 
         LOGGER.info("trying getSuperKino");
-        leidsaService.updateManualLotoBote();
+        leidsaService.updateLotoBote();
     }
 
 }

@@ -85,12 +85,4 @@ public class RealService {
         operationsService.getLotoRealBote();
     }
 
-    /**
-     * Update loto bote.
-     *
-     * @throws IOException the io exception
-     */
-    public void updateManualRealBote() throws IOException {
-        operationsService.getLotoLeidsaBote();
-    }
 }

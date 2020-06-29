@@ -98,7 +98,7 @@ public class AmericanaController {
     public void updateManualMegaMilion( ) throws IOException {
 
         LOGGER.info("trying update bote");
-        americanaService.updateManualMeagaMilionBote();
+        americanaService.updateMegaMillionBote();
     }
 
     /**
@@ -110,7 +110,7 @@ public class AmericanaController {
     public void updateManualPowerBall( ) throws IOException {
 
         LOGGER.info("trying update bote");
-        americanaService.updateManualPowerBallBote();
+        americanaService.updatePowerBallBote();
     }
 
     /**

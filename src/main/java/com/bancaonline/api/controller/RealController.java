@@ -76,7 +76,7 @@ public class RealController {
     public void updateManualLotoBote( ) throws IOException {
 
         LOGGER.info("trying update bote");
-        realService.updateManualRealBote();
+        realService.updateLotoRealBote();
     }
 
 

@@ -152,25 +152,6 @@ public class AmericanaService {
 
 
     /**
-     * Update manual meaga milion bote.
-     *
-     * @throws IOException the io exception
-     */
-    public void updateManualMeagaMilionBote() throws IOException {
-        operationsService.getMegaMillionBote();
-    }
-
-    /**
-     * Update manual power ball bote.
-     *
-     * @throws IOException the io exception
-     */
-    public void updateManualPowerBallBote() throws IOException {
-        operationsService.getMegaMillionBote();
-    }
-
-
-    /**
      * Update florida day lottery result.
      *
      * @param date the date
