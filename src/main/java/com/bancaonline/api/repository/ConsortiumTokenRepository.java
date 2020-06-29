@@ -19,4 +19,14 @@ public interface ConsortiumTokenRepository extends CrudRepository<ConsortiumToke
 
 	List<ConsortiumToken> findByConsortiumId(Long id);
 
+	List<ConsortiumToken> findByConsortiumName(String name);
+
+	List<ConsortiumToken> findByConsortiumNameAndStatusId(String name, long statusId);
+
+	List<ConsortiumToken> findByStatusId(Long statusId);
+
+	List<ConsortiumToken> findByIsUsedAndConsortiumName(boolean isUsed, String consortiumName);
+
+	List<ConsortiumToken> findByIsUsed(boolean isUsed);
+
 }

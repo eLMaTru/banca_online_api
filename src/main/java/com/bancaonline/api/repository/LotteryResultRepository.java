@@ -7,8 +7,6 @@ import javax.transaction.Transactional;
 import com.bancaonline.api.model.LotteryResult;
 import com.bancaonline.api.model.LotteryType;
 import com.bancaonline.api.model.Status;
-
-import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -29,9 +27,9 @@ public interface LotteryResultRepository extends CrudRepository<LotteryResult, S
      */
     @Transactional()
     LotteryResult findByLotteryType(LotteryType lotteryType);
-    
+
     @Transactional
- 
+
     List<LotteryResult> findByLotteryTypeId(long typeId);
 
     /**
@@ -78,9 +76,10 @@ public interface LotteryResultRepository extends CrudRepository<LotteryResult, S
      * @return the long
      */
     @Transactional
-    @Query("SELECT COUNT(lotteryResult.id) FROM LotteryResult lotteryResult where lotteryResult.lotteryType.id = :lotteryTypeId and "+
-    "lotteryResult.status.id = :statusId")
-    long countLotteryResultByLotteryTypeIdAndStatusId(@Param("lotteryTypeId") Long lotteryTypeId, @Param("statusId") Long statusId);
+    @Query("SELECT COUNT(lotteryResult.id) FROM LotteryResult lotteryResult where lotteryResult.lotteryType.id = :lotteryTypeId and "
+            + "lotteryResult.status.id = :statusId")
+    long countLotteryResultByLotteryTypeIdAndStatusId(@Param("lotteryTypeId") Long lotteryTypeId,
+            @Param("statusId") Long statusId);
 
     /**
      * Update status int.
@@ -119,6 +118,23 @@ public interface LotteryResultRepository extends CrudRepository<LotteryResult, S
      * @return the list
      */
     List<LotteryResult> findByStatusId(long statusId);
+
+    /**
+     * Find by drawingDate.
+     *
+     * @param drawingDate the drawingDate
+     * @return List<LotteryResult>
+     */
+    List<LotteryResult> findByDrawingDate(String drawingDate);
+
+    /**
+     * Find by lotteryTypeId and drawingDate.
+     *
+     * @param lotteryTypeId the lotteryTypeId
+     * @param drawingDate   the drawingDate
+     * @return List<LotteryResult>
+     */
+    List<LotteryResult> findByLotteryTypeIdAndDrawingDate(long lotteryTypeId, String drawingDate);
 
     /**
      * Format leidsa date string.

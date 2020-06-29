@@ -62,6 +62,18 @@ public class ConsortiumTokenService {
         return consortiumTokenRepository.findByConsortiumId(id);
     }
 
+    public List<ConsortiumToken> findByStatusId(Long id) {
+        return consortiumTokenRepository.findByStatusId(id);
+    }
+
+    public List<ConsortiumToken> findByConsortiumNameAndTokenStatusId(String consortiumName, Long id) {
+        return consortiumTokenRepository.findByConsortiumNameAndStatusId(consortiumName, id);
+    }
+
+    public List<ConsortiumToken> findByConsortiumName(String consortiumName) {
+        return consortiumTokenRepository.findByConsortiumName(consortiumName);
+    }
+
     /**
      * Delete.
      *
@@ -107,6 +119,7 @@ public class ConsortiumTokenService {
             ct.setShortUrl(shortUrl);
             ct.setShortToken(shortToken);
             ct.setFullUrl(fullUrl);
+            ct.setUsed(false);
             ct = consortiumTokenRepository.save(ct);
 
         }
@@ -148,6 +161,12 @@ public class ConsortiumTokenService {
 
                     AuthDevice ad = new AuthDevice(ip, token, Status.Type.ENABLED.toStatus());
                     ad.setCreatedDate(LocalDateTime.now());
+                    ConsortiumToken tmpCt = consortiumToken.get();
+
+                    if (tmpCt.isUsed() == null || !tmpCt.isUsed()) {
+                        tmpCt.setUsed(true);
+                        consortiumTokenRepository.save(tmpCt);
+                    }
                     authDeviceRepository.save(ad);
 
                 } else {
@@ -172,6 +191,35 @@ public class ConsortiumTokenService {
             fullUrl = token.get().getFullUrl();
         }
         return fullUrl;
+    }
+
+    public List<ConsortiumToken> findByIsUsedAndConsortiumName(boolean isUsed, String consortiumName) {
+
+        return consortiumTokenRepository.findByIsUsedAndConsortiumName(isUsed, consortiumName);
+    }
+
+    public List<ConsortiumToken> findByIsUsed(boolean isUsed) {
+
+        return consortiumTokenRepository.findByIsUsed(isUsed);
+    }
+
+    public boolean cleanIpsByToken(String token) {
+
+        authDeviceRepository.cleanIpsByToken(token);
+        return true;
+
+    }
+
+    public boolean cleanAllIps() {
+
+        authDeviceRepository.deleteAll();
+        return true;
+
+    }
+
+    public List<AuthDevice> findAuthDevicesByToken(String token) {
+
+        return authDeviceRepository.findByToken(token);
     }
 
 }

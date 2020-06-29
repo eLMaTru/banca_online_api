@@ -27,6 +27,7 @@ values(4, ''the resource is WINED'', ''WINED'');
 INSERT INTO develop.status
     (status_id, description, name)
 values(5, ''the resource is NOT_WINED'', ''NOT_WINED'');
+
 END IF;
 
 -- lottery_type table --

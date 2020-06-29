@@ -30,6 +30,33 @@ public class ResultService {
 	}
 
 	/**
+	 * findResultsByDrawingDate
+	 * 
+	 * @param drawingDate
+	 * @return List<LotteryResult>
+	 */
+	public List<LotteryResult> findResultsByDrawingDate(String drawingDate) {
+
+		List<LotteryResult> results = resultRepository.findByDrawingDate(drawingDate);
+
+		return results;
+	}
+
+	/**
+	 * findResultsByTypeIdAndDrawingDate
+	 * 
+	 * @param typeId
+	 * @param drawingDate
+	 * @return List<LotteryResult>
+	 */
+	public List<LotteryResult> findResultsByTypeIdAndDrawingDate(long typeId, String drawingDate) {
+
+		List<LotteryResult> results = resultRepository.findByLotteryTypeIdAndDrawingDate(typeId, drawingDate);
+
+		return results;
+	}
+
+	/**
 	 * 
 	 * @param results
 	 * @return

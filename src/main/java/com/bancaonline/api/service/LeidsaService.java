@@ -1,8 +1,6 @@
 package com.bancaonline.api.service;
 
 import java.io.IOException;
-
-import com.bancaonline.api.model.Loto;
 import com.bancaonline.api.model.LotteryResult;
 import com.bancaonline.api.repository.LotteryResultRepository;
 
