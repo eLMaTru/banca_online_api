@@ -521,7 +521,7 @@ public class ResultJob {
      *
      * @throws IOException the io exception
      */
-    @Scheduled(cron = "0 15 20 ? * 1-7")
+    @Scheduled(cron = "0 15 22 ? * 1-7")
     @Async
     protected void updateFloridaNigthResults() throws IOException {
         LotteryResult lotteryResult = americanaService.updateFloridaNight(null);

@@ -169,14 +169,4 @@ public class LeidsaService {
         operationsService.getLotoLeidsaBote();
     }
 
-
-    /**
-     * Update loto bote.
-     *
-     * @throws IOException the io exception
-     */
-    public void updateManualLotoBote() throws IOException {
-        operationsService.getLotoLeidsaBote();
-    }
-
 }
