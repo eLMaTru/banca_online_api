@@ -1,5 +1,6 @@
 package com.bancaonline.api.service;
 
+import java.lang.invoke.CallSite;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -220,6 +221,12 @@ public class ConsortiumTokenService {
     public List<AuthDevice> findAuthDevicesByToken(String token) {
 
         return authDeviceRepository.findByToken(token);
+    }
+
+    public List<AuthDevice> findAllIP(){
+        final List<AuthDevice> authDevices = new ArrayList<>();
+        authDeviceRepository.findAll().forEach(authDevices :: add);
+        return  authDevices;
     }
 
 }

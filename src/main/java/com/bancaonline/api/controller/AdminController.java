@@ -1,5 +1,7 @@
 package com.bancaonline.api.controller;
 
+import com.bancaonline.api.model.AuthDevice;
+import com.bancaonline.api.service.ConsortiumTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +28,9 @@ public class AdminController {
     @Autowired
     private StatusService statusService;
 
+    @Autowired
+    private ConsortiumTokenService consortiumTokenService;
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = EndpointConstants.PATH_ADMIN + "/lottery-types")
     public ResponseEntity<List<LotteryType>> fetchAllLoteryTypes() {
 
@@ -36,6 +41,12 @@ public class AdminController {
     public ResponseEntity<List<Status>> findAllStatus() {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(statusService.findAll());
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = EndpointConstants.PATH_ADMIN + "/ips")
+    public ResponseEntity<List<AuthDevice>> findAllIP() {
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(consortiumTokenService.findAllIP());
     }
 
 }

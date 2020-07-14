@@ -56,4 +56,6 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
                 "License of API", "API license URL", Collections.emptyList());
     }
 
+
+
 }

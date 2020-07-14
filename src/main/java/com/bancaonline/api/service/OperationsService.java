@@ -491,7 +491,7 @@ public class OperationsService {
 
 
             if (LotoReal25 != null){
-                if (!LotoReal25.getBote().equals(result.get(2).trim())){
+                if (!LotoReal25.getBote().equals(result.get(1).trim())){
                     lotoRepository.updateByLoteryType(38L,2L);
                     lotoRepository.save(createLotoObject(result.get(2).trim(),
                             new LotteryType(38L),
@@ -500,7 +500,7 @@ public class OperationsService {
                 }
 
             }else{
-                lotoRepository.save(createLotoObject(result.get(2).trim(),
+                lotoRepository.save(createLotoObject(result.get(1).trim(),
                         new LotteryType(38L),
                         "RD",
                         "Acumulado de la loto Real 25 pesos"));
